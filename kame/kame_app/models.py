@@ -35,7 +35,12 @@ class Patient(models.Model):
     date_of_birth = models.DateField()
     ssn = models.CharField(max_length=100)
 
+class Icd10(models.Model):
+    code = models.CharField(max_length=100, primary_key=True)
+    description = models.CharField(max_length=254)
 
+    class Meta:
+        db_table = 'icd10'
 
 class MedicalHistory(models.Model):
     '''Model for patients medical history'''
@@ -60,7 +65,7 @@ class MedicalRecord(models.Model):
     '''Model for medical record data'''
     record_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     patient_id = models.ForeignKey('Patient', on_delete=models.CASCADE) #for deleting we can use on_delete=models.CASCADE
-    Code = models.ForeignKey('icd10', on_delete=models.CASCADE) #need to see if it works
+    Code = models.ForeignKey('Icd10', on_delete=models.CASCADE) #need to see if it works
     history_id = models.ForeignKey('MedicalHistory', on_delete=models.CASCADE)
     vitals_id = models.ForeignKey('VitalSigns', on_delete=models.CASCADE)
     progress_notes = models.TextField()
