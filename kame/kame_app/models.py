@@ -1,7 +1,7 @@
 from django.db import models
 import uuid
 from django.contrib.auth.hashers import make_password
-import icd10_table as icd10
+# import icd10_table as icd10
 '''
     Here are the models needed to create all objects
     to be stored in the database
@@ -26,36 +26,24 @@ class Patient(models.Model):
     '''Model for patient socio-demographic information'''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     full_name = models.CharField(max_length=250)
-    age = models.IntegerField(max_length=120)
+    age = models.IntegerField()
     gender = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=150)
     address = models.CharField(max_length=254)
     city = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     date_of_birth = models.DateField()
-    ssn = models.Charfield(max_length=100)
+    ssn = models.CharField(max_length=100)
 
-icd10_code = icd10.get_foreign_key(description) #add logic for input argument
-class MedicalRecord(models.Model):
-    '''Model for medical record data'''
-    record_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    patient_id = models.ForeignKey(Patient) #for deleting we can use on_delete=models.CASCADE
-    Code = models.ForeignKey(icd10_code) #need to see if it works
-    history_id = models.ForeignKey(MedicalHistory)
-    vitals_id = models.ForeignKey(VitalSigns)
-    progress_notes = models.TextField()
-    lab_data = models.TextField()
-    imaging_reports = models.TextField()
-    medications = models.TextField()
-    inmunizations = models.TextField()
+
 
 class MedicalHistory(models.Model):
     '''Model for patients medical history'''
     history_id = models.UUIDField(primary_key=True, default= uuid.uuid4, editable=False)
-    patient_id = models.ForeignKey(Patient)
+    patient_id = models.ForeignKey('Patient', on_delete=models.CASCADE)
     surgeries = models.TextField()
     allergies = models.TextField()
-    medical_conditions = models.Textfield()
+    medical_conditions = models.TextField()
 
 class VitalSigns(models.Model):
     '''Model for patients vital signs'''
@@ -65,3 +53,18 @@ class VitalSigns(models.Model):
     respiratory_rate = models.IntegerField()
     weight = models.FloatField()
     height = models.FloatField()
+
+# icd10_code = icd10.get_foreign_key(description) #add logic for input argument
+
+class MedicalRecord(models.Model):
+    '''Model for medical record data'''
+    record_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    patient_id = models.ForeignKey('Patient', on_delete=models.CASCADE) #for deleting we can use on_delete=models.CASCADE
+    Code = models.ForeignKey('icd10', on_delete=models.CASCADE) #need to see if it works
+    history_id = models.ForeignKey('MedicalHistory', on_delete=models.CASCADE)
+    vitals_id = models.ForeignKey('VitalSigns', on_delete=models.CASCADE)
+    progress_notes = models.TextField()
+    lab_data = models.TextField()
+    imaging_reports = models.TextField()
+    medications = models.TextField()
+    inmunizations = models.TextField()

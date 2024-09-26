@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'kame_app',
 ]
 
 MIDDLEWARE = [
@@ -82,10 +83,13 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': os.getenv('DB_PASSWORD'),
         'PORT': 5432
-
-    }
+    },
 }
 
+DATABASES['test'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'kame.db')
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
