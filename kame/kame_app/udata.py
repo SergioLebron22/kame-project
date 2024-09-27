@@ -1,5 +1,5 @@
 from django.urls import path
-from kame.kame_app import dataviews
+from . import dataviews
 
 urlpatterns = [
     path("patients/", dataviews.patients, name="patients"),

@@ -21,6 +21,15 @@ class User(models.Model):
         if self.password and not self.password.startswith('pbkdf2_sha256$'):
             self.password = make_password(self.password)
         super(User, self).save(*args, **kwargs)
+    def to_dict(self):
+        return {
+            "employee_id": self.employee_id,
+            "role": self.role,
+            "email": self.email,
+            "password": self.password,
+            "name": self.name,
+        }
+
 
 class Patient(models.Model):
     '''Model for patient socio-demographic information'''
@@ -34,6 +43,20 @@ class Patient(models.Model):
     country = models.CharField(max_length=100)
     date_of_birth = models.DateField()
     ssn = models.CharField(max_length=100)
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "full_name": self.full_name,
+            "age": self.age,
+            "gender": self.gender,
+            "phone_number": self.phone_number,
+            "address": self.address,
+            "city": self.city,
+            "country": self.country,
+            "date_of_birth": self.date_of_birth,
+            "ssn": self.ssn,
+        }
 
 class Icd10(models.Model):
     code = models.CharField(max_length=100, primary_key=True)
@@ -49,6 +72,15 @@ class MedicalHistory(models.Model):
     surgeries = models.TextField()
     allergies = models.TextField()
     medical_conditions = models.TextField()
+    
+    def to_dict(self):
+        return {
+            "history_id": self.history_id,
+            "patient_id": self.patient_id,
+            "surgeries": self.surgeries,
+            "allergies": self.allergies,
+            "medical_conditions": self.medical_conditions,
+        }
 
 class VitalSigns(models.Model):
     '''Model for patients vital signs'''
@@ -58,6 +90,16 @@ class VitalSigns(models.Model):
     respiratory_rate = models.IntegerField()
     weight = models.FloatField()
     height = models.FloatField()
+    
+    def to_dict(self):
+        return {
+            "vitals_id": self.vitals_id,
+            "pulse": self.pulse,
+            "temperature": self.temperature,
+            "respiratory_rate": self.respiratory_rate,
+            "weight": self.weight,
+            "height": self.height,
+        }
 
 # icd10_code = icd10.get_foreign_key(description) #add logic for input argument
 
@@ -73,3 +115,18 @@ class MedicalRecord(models.Model):
     imaging_reports = models.TextField()
     medications = models.TextField()
     inmunizations = models.TextField()
+    
+    
+    def to_dict(self):
+        return {
+            "record_id": self.record_id,
+            "patient_id": self.patient_id,
+            "Code": self.Code,
+            "history_id": self.history_id,
+            "vitals_id": self.vitals_id,
+            "pogress_notes": self.progress_notes,
+            "lab_data": self.lab_data,
+            "imaging_reports": self.imaging_reports,
+            "medications": self.medications,
+            "inmunizations": self.inmunizations,
+        }
