@@ -65,7 +65,7 @@ class MedicalRecord(models.Model):
     '''Model for medical record data'''
     record_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     patient_id = models.ForeignKey('Patient', on_delete=models.CASCADE) #for deleting we can use on_delete=models.CASCADE
-    Code = models.ForeignKey('Icd10', on_delete=models.CASCADE) #need to see if it works
+    code = models.ForeignKey('Icd10', on_delete=models.CASCADE) #need to see if it works
     history_id = models.ForeignKey('MedicalHistory', on_delete=models.CASCADE)
     vitals_id = models.ForeignKey('VitalSigns', on_delete=models.CASCADE)
     progress_notes = models.TextField()
