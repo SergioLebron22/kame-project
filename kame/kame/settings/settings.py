@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'kame_app.apps.KameAppConfig'
+    'kame_app',
+    'kame_auth',
 ]
 
 MIDDLEWARE = [
@@ -66,7 +67,7 @@ WSGI_APPLICATION = 'kame.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-
+AUTH_USER_MODEL = 'kame_app.CustomUser'
 
 
 # Password validation
