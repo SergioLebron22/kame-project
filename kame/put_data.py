@@ -42,6 +42,8 @@ for code, description in data.items():
         (code, description)
     )
 
+# cursor.execute("ALTER TABLE kame_app_user RENAME TO kame_app_customuser")
+
 # Commit the transaction
 conn.commit()
 

@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('kame_auth.auth_urls')),
+    path('dashboard/', include('kame_dashboard.urls')),
 ]
