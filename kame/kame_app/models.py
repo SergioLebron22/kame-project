@@ -41,7 +41,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
-    
+
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
@@ -49,6 +49,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    def to_dict(self):
+        return {
+            'employee_id': self.employee_id,
+            'role': self.role,
+            'name': self.name,
+            'email': self.email,
+            'password': self.password
+        }
 
 class Patient(models.Model):
     '''Model for patient socio-demographic information'''
@@ -62,6 +71,20 @@ class Patient(models.Model):
     country = models.CharField(max_length=100)
     date_of_birth = models.DateField()
     ssn = models.CharField(max_length=100)
+
+    def to_dict(self):
+        return {
+            'patient_id': self.patient_id,
+            'full_name': self.full_name,
+            'age': self.age,
+            'gender': self.gender,
+            'phone_number': self.phone_number,
+            'address': self.address,
+            'city': self.city,
+            'country': self.country,
+            'date_of_birth': self.date_of_birth,
+            'ssn': self.ssn
+        }
 
 class Icd10(models.Model):
     code = models.CharField(max_length=100, primary_key=True)
@@ -78,6 +101,11 @@ class MedicalHistory(models.Model):
     allergies = models.TextField()
     medical_conditions = models.TextField()
 
+    def to_dict(self):
+        return {
+            
+        }
+
 class VitalSigns(models.Model):
     '''Model for patients vital signs'''
     vitals_id = models.UUIDField(primary_key=True, default= uuid.uuid4, editable=False)
@@ -86,6 +114,9 @@ class VitalSigns(models.Model):
     respiratory_rate = models.IntegerField()
     weight = models.FloatField()
     height = models.FloatField()
+
+    def to_dict(self):
+        return {}
 
 # icd10_code = icd10.get_foreign_key(description) #add logic for input argument
 
@@ -101,3 +132,6 @@ class MedicalRecord(models.Model):
     imaging_reports = models.TextField()
     medications = models.TextField()
     inmunizations = models.TextField()
+
+    def to_dict(self):
+        return {}
