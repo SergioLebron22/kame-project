@@ -2,11 +2,15 @@ from django.http import JsonResponse
 from kame_app.models import Patient, CustomUser, MedicalRecord
 import json
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 
 def dashboard(request):
-    data = MedicalRecord.objects.all()
-    return JsonResponse([record.to_dict() for record in data], safe=False)
+    if request.method == 'GET':
+        data = MedicalRecord.objects.all()
+        return JsonResponse([record.to_dict() for record in data], safe=False)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 def users(request):
     if request.method == "GET":
@@ -18,13 +22,30 @@ def users(request):
 def get_user(request, employee_id):
     if request.method == 'GET':
         data = CustomUser.objects.get(pk=employee_id)
-        return JsonResponse(data, safe=False)
+        return JsonResponse(data.to_dict(), safe=False)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
 
+@csrf_exempt
 def update_user(request, employee_id):
     if request.method == "PUT":
+        try:
+            user = CustomUser.objects.get(pk=employee_id)
+            data = json.loads(request.body)
 
-        data = CustomUser.objects.get(pk=employee_id)
-        return JsonResponse(data, safe=False)
+            user.role = data.get('role', user.role)
+            user.email = data.get('email', user.email)
+            user.name = data.get('name', user.name)
+
+            if 'password' in data:
+                user.set_password(data['password'])
+
+            user.save()
+            return JsonResponse({'message': 'User updated successfully'}, status=200)
+        except CustomUser.DoesNotExist:
+            return JsonResponse({'error': 'User not found'}, status=404)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 def delete_user(request, employee_id):
     if request.method == "DELETE":
@@ -36,9 +57,13 @@ def delete_user(request, employee_id):
             return JsonResponse({'error': 'User not found'}, status=404)
 
 def get_patients(request):
-    data = Patient.objects.all()
-    return JsonResponse(data, safe=False)
+    if request.method == 'GET':
+        data = Patient.objects.all()
+        return JsonResponse([patient.to_dict() for patient in data], safe=False)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
 
+# @csrf_exempt
 def create_user(request):
     if request.method == 'POST':
         try:
