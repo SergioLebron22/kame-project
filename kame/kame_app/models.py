@@ -59,18 +59,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
-    def to_dict(self):
-        return {
-            'employee_id': self.employee_id,
-            'role': self.role,
-            'name': self.name,
-            'email': self.email,
-            'password': self.password
-        }
-
 class Patient(models.Model):
     '''Model for patient socio-demographic information'''
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    patient_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     full_name = models.CharField(max_length=250)
     age = models.IntegerField()
     gender = models.CharField(max_length=100)

@@ -48,6 +48,7 @@ def update_user(request, employee_id):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
+@csrf_exempt
 def delete_user(request, employee_id):
     if request.method == "DELETE":
         try:
