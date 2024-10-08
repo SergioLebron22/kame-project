@@ -3,6 +3,7 @@ from kame_app.models import Patient, CustomUser, MedicalRecord
 import json
 # from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
 
 
 def dashboard(request):
@@ -50,7 +51,7 @@ def update_user(request, employee_id):
 def delete_user(request, employee_id):
     if request.method == "DELETE":
         try:
-            user = CustomUser.objects.get(pk=employee_id)
+            user = get_object_or_404(CustomUser, pk=employee_id)
             user.delete()
             return JsonResponse({'message': 'User deleted succesfully'}, status=200)
         except CustomUser.DoesNotExist:
@@ -63,7 +64,7 @@ def get_patients_dashboard(request):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-@csrf_exempt
+# @csrf_exempt
 def create_employee(request):
     if request.method == 'POST':
         try:
@@ -75,8 +76,11 @@ def create_employee(request):
 
             if not role or not email or not password or not name:
                 return JsonResponse({'error': 'Missing required fields'}, status=400)
-            user = CustomUser.create_super_user(role=role, name=name, email=email, password=password)
-            return JsonResponse({'message': 'User created successfully', 'user_id': user.id}, status=201)
+            if role == 'admin':
+                user = CustomUser.objects.create_superuser(email=email, password=password, role=role, name=name)
+            else:
+                user = CustomUser.objects.create_user(email=email, password=password, role=role, name=name)
+            return JsonResponse({'message': 'User created successfully', 'user_id': user.employee_id}, status=201)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
     else:
