@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'kame_app',
     'kame_auth',
+    'kame_dashboard'
 ]
 
 MIDDLEWARE = [

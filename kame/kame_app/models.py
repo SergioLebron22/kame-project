@@ -50,7 +50,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             "name": self.name,
         }
 
-    
+
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
@@ -71,7 +71,7 @@ class Patient(models.Model):
     country = models.CharField(max_length=100)
     date_of_birth = models.DateField()
     ssn = models.CharField(max_length=100)
-    
+
     def to_dict(self):
         return {
             "patient_id": self.patient_id,
@@ -100,7 +100,7 @@ class MedicalHistory(models.Model):
     surgeries = models.TextField()
     allergies = models.TextField()
     medical_conditions = models.TextField()
-    
+
     def to_dict(self):
         return {
             "history_id": self.history_id,
@@ -118,7 +118,7 @@ class VitalSigns(models.Model):
     respiratory_rate = models.IntegerField()
     weight = models.FloatField()
     height = models.FloatField()
-    
+
     def to_dict(self):
         return {
             "vitals_id": self.vitals_id,
@@ -143,8 +143,8 @@ class MedicalRecord(models.Model):
     imaging_reports = models.TextField()
     medications = models.TextField()
     inmunizations = models.TextField()
-    
-    
+
+
     def to_dict(self):
         return {
             "record_id": self.record_id,
