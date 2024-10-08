@@ -74,7 +74,7 @@ class Patient(models.Model):
     
     def to_dict(self):
         return {
-            "id": self.id,
+            "patient_id": self.patient_id,
             "full_name": self.full_name,
             "age": self.age,
             "gender": self.gender,
@@ -104,7 +104,6 @@ class MedicalHistory(models.Model):
     def to_dict(self):
         return {
             "history_id": self.history_id,
-            "patient_id": self.patient_id,
             "surgeries": self.surgeries,
             "allergies": self.allergies,
             "medical_conditions": self.medical_conditions,
@@ -113,6 +112,7 @@ class MedicalHistory(models.Model):
 class VitalSigns(models.Model):
     '''Model for patients vital signs'''
     vitals_id = models.UUIDField(primary_key=True, default= uuid.uuid4, editable=False)
+    patient_id = models.ForeignKey('Patient', on_delete=models.CASCADE, default=uuid.uuid4)
     pulse = models.IntegerField()
     temperature = models.FloatField()
     respiratory_rate = models.IntegerField()
@@ -135,7 +135,7 @@ class MedicalRecord(models.Model):
     '''Model for medical record data'''
     record_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     patient_id = models.ForeignKey('Patient', on_delete=models.CASCADE) #for deleting we can use on_delete=models.CASCADE
-    Code = models.ForeignKey('Icd10', on_delete=models.CASCADE) #need to see if it works
+    code = models.ForeignKey('Icd10', on_delete=models.SET_NULL, null=True, blank=True) #need to see if it works
     history_id = models.ForeignKey('MedicalHistory', on_delete=models.CASCADE)
     vitals_id = models.ForeignKey('VitalSigns', on_delete=models.CASCADE)
     progress_notes = models.TextField()
@@ -148,10 +148,7 @@ class MedicalRecord(models.Model):
     def to_dict(self):
         return {
             "record_id": self.record_id,
-            "patient_id": self.patient_id,
-            "Code": self.Code,
-            "history_id": self.history_id,
-            "vitals_id": self.vitals_id,
+            "code": self.code,
             "pogress_notes": self.progress_notes,
             "lab_data": self.lab_data,
             "imaging_reports": self.imaging_reports,

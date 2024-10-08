@@ -19,7 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path("dashboard/", include("kame_app.udashboard")),
-    path("", include("kame_app.udata")),
+    path("home/", include("kame_app.udata")),
     path('admin/', admin.site.urls),
     path('auth/', include('kame_auth.auth_urls')),
 ]
