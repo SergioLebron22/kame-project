@@ -61,7 +61,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 class Patient(models.Model):
     '''Model for patient socio-demographic information'''
-    patient_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     full_name = models.CharField(max_length=250)
     age = models.IntegerField()
     gender = models.CharField(max_length=100)
@@ -74,7 +74,7 @@ class Patient(models.Model):
 
     def to_dict(self):
         return {
-            'patient_id': self.patient_id,
+            'patient_id': self.id,
             'full_name': self.full_name,
             'age': self.age,
             'gender': self.gender,
@@ -103,7 +103,7 @@ class MedicalHistory(models.Model):
 
     def to_dict(self):
         return {
-            
+
         }
 
 class VitalSigns(models.Model):

@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from kame_app.models import Patient, CustomUser, MedicalRecord
 import json
-from django.core import serializers
+# from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -56,15 +56,15 @@ def delete_user(request, employee_id):
         except CustomUser.DoesNotExist:
             return JsonResponse({'error': 'User not found'}, status=404)
 
-def get_patients(request):
+def get_patients_dashboard(request):
     if request.method == 'GET':
         data = Patient.objects.all()
         return JsonResponse([patient.to_dict() for patient in data], safe=False)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-# @csrf_exempt
-def create_user(request):
+@csrf_exempt
+def create_employee(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -75,7 +75,7 @@ def create_user(request):
 
             if not role or not email or not password or not name:
                 return JsonResponse({'error': 'Missing required fields'}, status=400)
-            user = CustomUser.objects.create_user(role=role, name=name, email=email, password=password)
+            user = CustomUser.create_super_user(role=role, name=name, email=email, password=password)
             return JsonResponse({'message': 'User created successfully', 'user_id': user.id}, status=201)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
