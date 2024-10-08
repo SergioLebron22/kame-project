@@ -90,6 +90,12 @@ class Icd10(models.Model):
     code = models.CharField(max_length=100, primary_key=True)
     description = models.CharField(max_length=254)
 
+    def to_dict(self):
+        return {
+            "code": self.code,
+            "description": self.description
+        }
+
     class Meta:
         db_table = 'icd10'
 
@@ -147,8 +153,12 @@ class MedicalRecord(models.Model):
 
     def to_dict(self):
         return {
+
             "record_id": self.record_id,
-            "code": self.code,
+            "patient_id": self.patient_id.to_dict(),
+            "code": self.code.to_dict(),
+            "history_id": self.history_id.to_dict(),
+            "vitals_id": self.vitals_id.to_dict(),
             "pogress_notes": self.progress_notes,
             "lab_data": self.lab_data,
             "imaging_reports": self.imaging_reports,

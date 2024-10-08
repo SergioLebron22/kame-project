@@ -1,4 +1,4 @@
-from  .models import Patient, MedicalRecord,VitalSigns,MedicalHistory
+from  .models import Patient, MedicalRecord,VitalSigns,MedicalHistory, Icd10
 from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
@@ -30,7 +30,7 @@ def create_patient(request):
             country = data.get("country")
             date_of_birth = datetime.fromisoformat(data.get("date_of_birth"))
             ssn = data.get("ssn")
-            
+
             new_patient = Patient.objects.create(
                 full_name=full_name,
                 age=age,
@@ -42,7 +42,7 @@ def create_patient(request):
                 date_of_birth=date_of_birth,
                 ssn=ssn
             )
-            
+
             serialized_patient = serializers.serialize('json', [new_patient])
             patient_data = json.loads(serialized_patient)[0]['fields']
             return JsonResponse(patient_data, status=201)
@@ -80,9 +80,11 @@ def get_patient(request, patient_id):
 @csrf_exempt
 def get_medical_record(request, patient_id):
     if request.method == 'GET':
-        data = MedicalRecord.objects.get(patient_id=patient_id)
-        return JsonResponse(data.to_dict())
-
+        try:
+            data = MedicalRecord.objects.get(patient_id=patient_id)
+            return JsonResponse(data.to_dict())
+        except MedicalRecord.DoesNotExist:
+            return JsonResponse({'error': 'Medical record not found'}, status=404)
     elif request.method == 'PUT':
         try:
             data = json.loads(request.body)
@@ -92,10 +94,19 @@ def get_medical_record(request, patient_id):
             medicalrecord.imaging_reports = data.get('imaging_reports', medicalrecord.imaging_reports)
             medicalrecord.medications = data.get('medications', medicalrecord.medications)
             medicalrecord.inmunizations = data.get('inmunizations', medicalrecord.inmunizations)
+            medicalrecord.code = None
+            if 'code' in data:
+                try:
+                    icd10_code = Icd10.objects.get(code=data['code'])
+                    medicalrecord.code = icd10_code
+                except Icd10.DoesNotExist:
+                    return JsonResponse({'error': 'Invalid ICD-10 code'}, status=400)
             medicalrecord.save()
-            return JsonResponse(medicalrecord.to_dict())
+            serialized_record = serializers.serialize('json', medicalrecord)
+            record_data = json.loads(serialized_record)[0]['fields']
+            return JsonResponse(record_data, status=200)
         except json.JSONDecodeError:
-            return JsonResponse({'Error': "Invalid json"}, status=400)  
+            return JsonResponse({'Error': "Invalid json"}, status=400)
 
 @csrf_exempt
 def create_medical_record(request, patient_id):
@@ -113,7 +124,7 @@ def create_medical_record(request, patient_id):
             code = None
             if 'code' in data:
                 code = data.get('code')
-        
+
             new_medical_record = MedicalRecord.objects.create(
                 patient_id=patient,
                 vitals_id=vital_signs,
@@ -125,11 +136,11 @@ def create_medical_record(request, patient_id):
                 inmunizations=inmunizations,
                 code=code
             )
-            
+
             serialized_medial_record = serializers.serialize('json', [new_medical_record])
             medicalrecord_data = json.loads(serialized_medial_record)[0]['fields']
             return JsonResponse(medicalrecord_data, status=201)
-        
+
         except json.JSONDecodeError:
             return JsonResponse({'Error': 'Invalid JSON'}, status=400)
         except Exception as e:
@@ -140,7 +151,7 @@ def get_vital_signs(request, patient_id):
     if request.method == 'GET':
         data = VitalSigns.objects.get(patient_id=patient_id)
         return JsonResponse(data.to_dict())
-   
+
     elif request.method == 'PUT':
         try:
             data = json.loads(request.body)
@@ -162,13 +173,13 @@ def create_vital_signs(request, patient_id):
      if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            patient = Patient.objects.get(pk=patient_id)            
+            patient = Patient.objects.get(pk=patient_id)
             pulse = data.get('pulse')
             temperature = data.get('temperature')
             respiratory_rate = data.get('respiratory_rate')
             weight = data.get('weight')
             height = data.get('height')
-            
+
             new_vitalSigns = VitalSigns.objects.create(
                 patient_id=patient,
                 pulse=pulse,
@@ -176,22 +187,22 @@ def create_vital_signs(request, patient_id):
                 respiratory_rate=respiratory_rate,
                 weight=weight,
                 height=height
-                
+
             )
             serialized_vitalsigns = serializers.serialize('json', [new_vitalSigns])
             vitalSigns_data = json.loads(serialized_vitalsigns)[0]['fields']
             return JsonResponse(vitalSigns_data, status=201)
-        
+
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
-@csrf_exempt 
+@csrf_exempt
 def get_medical_history(request, patient_id):
     if request.method == 'GET':
         data = MedicalHistory.objects.get(patient_id=patient_id)
         return JsonResponse(data.to_dict())
-    
+
     elif request.method == 'PUT':
         try:
             data = json.loads(request.body)
@@ -213,7 +224,7 @@ def create_medical_history(request, patient_id):
             surgeries = data.get('surgeries')
             allergies = data.get('allergies')
             medical_conditions = data.get('medical_conditions')
-            
+
             new_medical_history = MedicalHistory.objects.create(
                 patient_id=patient,
                 surgeries=surgeries,
@@ -227,9 +238,9 @@ def create_medical_history(request, patient_id):
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
-        
+
 def get_patient_appointments(request, patient_id):
-    
+
     pass
 
 def create_appointment(request, patient_id):
