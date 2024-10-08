@@ -41,6 +41,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
+    def to_dict(self):
+        return {
+            "employee_id": self.employee_id,
+            "role": self.role,
+            "email": self.email,
+            "password": self.password,
+            "name": self.name,
+        }
+
     
     objects = CustomUserManager()
 
@@ -62,6 +71,20 @@ class Patient(models.Model):
     country = models.CharField(max_length=100)
     date_of_birth = models.DateField()
     ssn = models.CharField(max_length=100)
+    
+    def to_dict(self):
+        return {
+            "patient_id": self.patient_id,
+            "full_name": self.full_name,
+            "age": self.age,
+            "gender": self.gender,
+            "phone_number": self.phone_number,
+            "address": self.address,
+            "city": self.city,
+            "country": self.country,
+            "date_of_birth": self.date_of_birth,
+            "ssn": self.ssn,
+        }
 
 class Icd10(models.Model):
     code = models.CharField(max_length=100, primary_key=True)
@@ -77,15 +100,34 @@ class MedicalHistory(models.Model):
     surgeries = models.TextField()
     allergies = models.TextField()
     medical_conditions = models.TextField()
+    
+    def to_dict(self):
+        return {
+            "history_id": self.history_id,
+            "surgeries": self.surgeries,
+            "allergies": self.allergies,
+            "medical_conditions": self.medical_conditions,
+        }
 
 class VitalSigns(models.Model):
     '''Model for patients vital signs'''
     vitals_id = models.UUIDField(primary_key=True, default= uuid.uuid4, editable=False)
+    patient_id = models.ForeignKey('Patient', on_delete=models.CASCADE, default=uuid.uuid4)
     pulse = models.IntegerField()
     temperature = models.FloatField()
     respiratory_rate = models.IntegerField()
     weight = models.FloatField()
     height = models.FloatField()
+    
+    def to_dict(self):
+        return {
+            "vitals_id": self.vitals_id,
+            "pulse": self.pulse,
+            "temperature": self.temperature,
+            "respiratory_rate": self.respiratory_rate,
+            "weight": self.weight,
+            "height": self.height,
+        }
 
 # icd10_code = icd10.get_foreign_key(description) #add logic for input argument
 
@@ -93,7 +135,7 @@ class MedicalRecord(models.Model):
     '''Model for medical record data'''
     record_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     patient_id = models.ForeignKey('Patient', on_delete=models.CASCADE) #for deleting we can use on_delete=models.CASCADE
-    Code = models.ForeignKey('Icd10', on_delete=models.CASCADE) #need to see if it works
+    code = models.ForeignKey('Icd10', on_delete=models.SET_NULL, null=True, blank=True) #need to see if it works
     history_id = models.ForeignKey('MedicalHistory', on_delete=models.CASCADE)
     vitals_id = models.ForeignKey('VitalSigns', on_delete=models.CASCADE)
     progress_notes = models.TextField()
@@ -101,3 +143,15 @@ class MedicalRecord(models.Model):
     imaging_reports = models.TextField()
     medications = models.TextField()
     inmunizations = models.TextField()
+    
+    
+    def to_dict(self):
+        return {
+            "record_id": self.record_id,
+            "code": self.code,
+            "pogress_notes": self.progress_notes,
+            "lab_data": self.lab_data,
+            "imaging_reports": self.imaging_reports,
+            "medications": self.medications,
+            "inmunizations": self.inmunizations,
+        }
