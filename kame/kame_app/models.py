@@ -2,13 +2,11 @@ from django.db import models
 import uuid
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.contrib.auth.hashers import make_password
-# import icd10_table as icd10
 '''
     Here are the models needed to create all objects
     to be stored in the database
 '''
 
-# Create your models here.
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -110,6 +108,7 @@ class MedicalHistory(models.Model):
     def to_dict(self):
         return {
             "history_id": self.history_id,
+            "patient_id": self.patient_id.to_dict(),
             "surgeries": self.surgeries,
             "allergies": self.allergies,
             "medical_conditions": self.medical_conditions,
@@ -128,6 +127,7 @@ class VitalSigns(models.Model):
     def to_dict(self):
         return {
             "vitals_id": self.vitals_id,
+            "patient_id": self.patient_id.to_dict(),
             "pulse": self.pulse,
             "temperature": self.temperature,
             "respiratory_rate": self.respiratory_rate,
@@ -135,13 +135,11 @@ class VitalSigns(models.Model):
             "height": self.height,
         }
 
-# icd10_code = icd10.get_foreign_key(description) #add logic for input argument
-
 class MedicalRecord(models.Model):
     '''Model for medical record data'''
     record_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    patient_id = models.ForeignKey('Patient', on_delete=models.CASCADE) #for deleting we can use on_delete=models.CASCADE
-    code = models.ForeignKey('Icd10', on_delete=models.SET_NULL, null=True, blank=True) #need to see if it works
+    patient_id = models.ForeignKey('Patient', on_delete=models.CASCADE)
+    code = models.ForeignKey('Icd10', on_delete=models.SET_NULL, null=True, blank=True)
     history_id = models.ForeignKey('MedicalHistory', on_delete=models.CASCADE)
     vitals_id = models.ForeignKey('VitalSigns', on_delete=models.CASCADE)
     progress_notes = models.TextField()
@@ -153,7 +151,6 @@ class MedicalRecord(models.Model):
 
     def to_dict(self):
         return {
-
             "record_id": self.record_id,
             "patient_id": self.patient_id.to_dict(),
             "code": self.code.to_dict(),
