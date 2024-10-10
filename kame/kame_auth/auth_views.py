@@ -18,7 +18,7 @@ def login_view(request):
             
             if user is not None and check_password(password, user.password):
                 login(request, user)
-                return JsonResponse({'status': 'success', 'message': 'Logged in successfully!'}, status=200)
+                return JsonResponse(user.to_dict(), status=200)
             else:
                 return JsonResponse({'status': 'error', 'message': 'Invalid email or password'}, status=400)
         except json.JSONDecodeError:
