@@ -31,3 +31,9 @@ def logout_view(request):
         logout(request)
         return JsonResponse({'status': 'success', 'message': 'Logged out successfully'}, status=200)
     return JsonResponse({'status': 'error', 'message': 'Only POST request are allowed'}, status=405)
+
+def get_session(request):
+    if request.method == 'GET':
+        session_id = request.session.session_key
+        return JsonResponse({'session_id': session_id})
+    return JsonResponse({'error': 'Invalid request method'}, status=405) 
