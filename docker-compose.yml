@@ -1,0 +1,28 @@
+services:
+  frontend:
+    build:
+      context: ./frontend/kame-client
+      dockerfile: Dockerfile
+    image: kame-frontend:latest
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+  backend:
+    build:
+      context: ./kame
+      dockerfile: Dockerfile
+    image: kame-backend:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=${DEBUG}
+      - SECRET_KEY=${SECRET_KEY}
+    depends_on:
+      - db
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
