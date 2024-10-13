@@ -1,0 +1,5 @@
+need to refactor dataanalysis to return three seperate charts
+make sure to add date column in models to use in the charts
+migrate it and then test if it works
+add user creation on page
+and an employee space in the page
