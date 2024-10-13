@@ -10,8 +10,6 @@ COPY . .
 
 RUN npm run build
 
-RUN npm install -g serve
-
 EXPOSE 5173
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
