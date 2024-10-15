@@ -69,6 +69,7 @@ class Patient(models.Model):
     country = models.CharField(max_length=100)
     date_of_birth = models.DateField()
     ssn = models.CharField(max_length=100)
+    last_visited = models.DateField(null=True, blank=True, auto_now=True)
 
     def to_dict(self):
         return {
@@ -82,6 +83,7 @@ class Patient(models.Model):
             "country": self.country,
             "date_of_birth": self.date_of_birth,
             "ssn": self.ssn,
+            "last_visited": self.last_visited
         }
 
 class Icd10(models.Model):
@@ -117,7 +119,7 @@ class MedicalHistory(models.Model):
 class VitalSigns(models.Model):
     '''Model for patients vital signs'''
     vitals_id = models.UUIDField(primary_key=True, default= uuid.uuid4, editable=False)
-    patient_id = models.ForeignKey('Patient', on_delete=models.CASCADE, default=uuid.uuid4)
+    patient_id = models.ForeignKey('Patient', on_delete=models.CASCADE)
     pulse = models.IntegerField()
     temperature = models.FloatField()
     respiratory_rate = models.IntegerField()
