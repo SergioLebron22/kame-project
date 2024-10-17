@@ -4,6 +4,7 @@ import DataEntryHome from "./pages/DataEntryHome"
 import LandingPage from "./pages/LandingPage"
 import NoPage from "./pages/NoPage"
 import AdminPage from "./pages/AdminPage"
+import EmployeeCreation from "./pages/RegisterEmployeePage"
 function App() {
 
 
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route index element={<LandingPage />}/>
           <Route path="/dashboard" element={<AdminPage />}/>
+          <Route path="/dashboard/register-employee" element={<EmployeeCreation />}/>
           <Route path="/auth/login" element={<LoginPage />}/>
           <Route path="/home/" element={<DataEntryHome />} />
           <Route path="*" element={<NoPage />}/>

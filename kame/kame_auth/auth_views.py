@@ -22,9 +22,9 @@ def login_view(request):
             user = CustomUser.objects.get(email=email)
         except CustomUser.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'User does not exist'}, status=400)
-        
+
         auth_user = authenticate(request, username=email, password=password)
-        
+
         if auth_user is not None and check_password(password, auth_user.password):
             login(request, auth_user)
             session_id = request.session.session_key
@@ -40,7 +40,7 @@ def logout_view(request):
     try:
         session = Session.objects.get(session_key=session_id)
         user_id = session.get_decoded().get('_auth_user_id')
-        
+
         if user_id:
             logout(request)
             session.delete()
@@ -51,7 +51,9 @@ def logout_view(request):
 
 @ensure_csrf_cookie
 def check_auth(request):
+    print("Request Headers:", request.headers)
     session_id = request.headers.get('Authorization', '').replace('SessionID ', '')
+    print(session_id)
     try:
         session = Session.objects.get(session_key=session_id)
         user_id = session.get_decoded().get('_auth_user_id')

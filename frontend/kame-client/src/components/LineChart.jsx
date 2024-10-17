@@ -25,7 +25,7 @@ const LinePatients = () => {
     const chartRef = useRef(null);
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/dashboard/patients_dashboard/')
+        axios.get('http://127.0.0.1:8000/dashboard/patients_visiting/')
             .then(response => {
                 const data = response.data;
 

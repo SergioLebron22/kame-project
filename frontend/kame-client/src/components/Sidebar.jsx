@@ -15,11 +15,11 @@ export default function Sidebar({ isOpen, toggleSidebar}) {
                 <img src={logo} className="flex h-36 ml-4"/>
             </div>
             <nav className="mt-10">
-                <a href="#" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">
-                Create Patient
+                <a href="/dashboard/register-employee" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">
+                Register Employee
                 </a>
                 <a href="#" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">
-                Register Patient
+                Employees on Shift
                 </a>
                 <a href="#" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">
                 Add Vitals

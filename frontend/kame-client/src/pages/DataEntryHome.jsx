@@ -15,11 +15,12 @@ export default function DataEntryHome() {
                     'Authorization': sessionId,
                 },
                 timeout: 5000,
-            }) 
+            })
         .then(res => {
             console.log('Authentication response:', res.data);
             if (res.data.isAuthenticated) {
                 setIsAuthenticated(true);
+                if (role === 'admin')
             } else {
                 setIsAuthenticated(false);
                 window.location.href = '/auth/login/';
@@ -37,7 +38,7 @@ export default function DataEntryHome() {
         console.log('User not auth')
         return <div>Loading...</div>
     }
-    
+
     return (
         <>
             <div className="bg-gray-200 min-h-full">

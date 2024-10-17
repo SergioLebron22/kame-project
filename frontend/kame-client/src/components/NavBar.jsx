@@ -23,7 +23,7 @@ export default function NavBar() {
                         {name ? (
                             <p className="font-semibold text-sky-600 hidden md:block mr-4">{name}</p>
                         ) : (
-                            <p className="hidden md:block">No showing</p>
+                            <p className="hidden md:block">Not showing</p>
                         )}
                         <Hamburger toggleSidebar={toggleSidebar}/>
                     </div>

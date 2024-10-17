@@ -94,11 +94,11 @@ def get_patient_visits(request):
             patients = Patient.objects.filter(last_visited=today)
             visits = patients.count()
 
-            data = {
-                "date": today,
-                "visits": visits,
-            }
-            return JsonResponse(data)
+            # data = {
+            #     "date": today,
+            #     "visits": visits,
+            # }
+            return JsonResponse(patients)
         except Exception as e:
             return JsonResponse({'error': 'An error occurred while fetching patient visits.'}, status=500)
     else:
