@@ -26,9 +26,9 @@ export default function LoginCard() {
                 } else {
                     console.log(response.data)
                     localStorage.setItem('sessionID', response.data.sessionID)
-                    let session = localStorage.getItem('sessionID')
-                    console.log(session)
                     localStorage.setItem('name', response.data.name)
+                    localStorage.setItem('role', response.data.role)
+                    
                     window.location.href = '/home'
                 }
             })

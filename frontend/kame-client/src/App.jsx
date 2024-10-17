@@ -5,6 +5,9 @@ import LandingPage from "./pages/LandingPage"
 import NoPage from "./pages/NoPage"
 import AdminPage from "./pages/AdminPage"
 import EmployeeCreation from "./pages/RegisterEmployeePage"
+import MedicalRecordPage from "./pages/MedicalRecordPage"
+import CreateMedicalRecord from "./pages/CreateMedicalRecord"
+
 function App() {
 
 
@@ -17,6 +20,8 @@ function App() {
           <Route path="/dashboard/register-employee" element={<EmployeeCreation />}/>
           <Route path="/auth/login" element={<LoginPage />}/>
           <Route path="/home/" element={<DataEntryHome />} />
+          <Route path="/home/:patientId" element={<MedicalRecordPage />} />
+          <Route path="/home/create-medical-record/" element={<CreateMedicalRecord />} />
           <Route path="*" element={<NoPage />}/>
         </Routes>
       </BrowserRouter>

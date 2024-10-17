@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import PatientsList from "../components/PatientsList";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import LoadingSpinner from "../components/LoadingSpinner";
-// import { getCookie } from "../csrf";
+import MedicalRecordInfo from "../components/MedicalRecordInfo";
 
-export default function DataEntryHome() {
+export default function MedicalRecordPage() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+
 
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionID');
@@ -16,12 +15,11 @@ export default function DataEntryHome() {
                     'Authorization': sessionId,
                 },
                 timeout: 5000,
-            })
+            }) 
         .then(res => {
             console.log('Authentication response:', res.data);
             if (res.data.isAuthenticated) {
                 setIsAuthenticated(true);
-                if (role === 'admin')
             } else {
                 setIsAuthenticated(false);
                 window.location.href = '/auth/login/';
@@ -37,16 +35,14 @@ export default function DataEntryHome() {
 
     if (!isAuthenticated) {
         console.log('User not auth')
-        return <LoadingSpinner />
+        return <div>Loading...</div>
     }
+  
 
     return (
-        <>
-            <div className="bg-gray-200 min-h-full justify-between">
-                <NavBar />
-                <h1 className="flex align-center justify-start font-bold my-10 ml-24 text-gray-800 text-4xl">Patients List</h1>
-                <PatientsList />
-            </div>
-        </>
+        <div className="bg-gray-200 min-h-full">
+            <NavBar />
+            <MedicalRecordInfo />
+        </div>
     );
 }
