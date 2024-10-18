@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import PatientsList from "../components/PatientsList";
 import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner";
-// import { getCookie } from "../csrf";
+import RegisterCard from "../components/RegisterCard";
 
-export default function DataEntryHome() {
+export default function RegisterPatien() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    
+
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionID');
         const checkAuth = async () => {
@@ -38,14 +37,11 @@ export default function DataEntryHome() {
         console.log('User not auth')
         return <LoadingSpinner />
     }
-    
+
     return (
-        <>
-            <div className="bg-gray-200 min-h-full justify-between">
-                <NavBar />
-                <h1 className="flex align-center mt-10 justify-start font-bold my-10 ml-24 text-gray-800 text-4xl">Patients List</h1>
-                <PatientsList />
-            </div>
-        </>
+        <div className="bg-gray-200 min-h-screen justify-between">
+            <NavBar />
+            <RegisterCard />
+        </div>
     );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
@@ -7,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function PatientsList() {
     const [searchQuery, setSearchQuery] = useState('')
     const [patientsList, setPatientsList] = useState([]);
+    const [medicalRecord, setMedicalRecord] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,14 +31,23 @@ export default function PatientsList() {
         navigate(`/home/${patient_id}`)
     }
 
+    const handleAddButton = () => {
+        navigate('/home/register-patient/')
+    }
+
     const filteredPatients = patientsList.filter(patient =>
         patient.full_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     
     return (
         <>
-            <div className="flex justify-start ml-20">
+            <div className="flex justify-between ml-20 mr-20">
                 <SearchBar onSearch={handleQuery}/>
+                <button onClick={handleAddButton} className="justify-end mr-1 p-3 rounded-full font-semibold text-white border-2 border-sky-500 bg-sky-400 hover:bg-sky-500 hover:text-white ">
+                    <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                </button>
             </div>
             <div className="mx-20 mt-3 p-5 bg-white min-h-screen rounded-lg border-2 border-gray-300 shadow-xl">
                 <ul role="list" className="divide-y divide-gray-400">
@@ -51,12 +62,13 @@ export default function PatientsList() {
                             <div>
                                 <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">Vitals</button>
                                 <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">History</button>
-                                <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">Details</button>
+                                <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-green-400  hover:text-white">Create Record</button>
                             </div>
                         </li>
                     ))}
                 </ul>
             </div>
+            <div className="mt-5 text-gray-200">.</div>
         </>
     );
 }

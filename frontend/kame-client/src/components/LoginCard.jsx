@@ -6,6 +6,7 @@ import axios from 'axios';
 export default function LoginCard() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -30,17 +31,23 @@ export default function LoginCard() {
                 }
             })
             .catch(err => {
-                console.error('There was an error logging in!', err)
+                console.error('There was an error logging in!', err);
+                if (err.response && err.response.data && err.response.data.message) {
+                    setErrorMessage(err.response.data.message);
+                } else {
+                    setErrorMessage('An unexpected error occurred. Please try again.');
+                }
             });
     }
 
     return (
         <>
             <div className="min-h-screen bg-gradient-to-b from-slate-50 via-slate-50 to-sky-500 flex items-center justify-center">
-                <div className="flex flex-col items-center justify-center h-full md:h-128 w-96 bg-gray-100 rounded-md p-5">
+                <div className="flex flex-col items-center justify-center h-full w-96 bg-gray-100 shadow-2xl rounded-md p-10 py-20">
                     <img src={logo} alt="logo" className="mb-5 h-48" />
                     <h1 className="text-3xl font-bold mb-4 text-sky-500">LOGIN</h1>
                     <form onSubmit={handleLogin} className="w-auto max-w-sm p-6 pb-10 rounded-lg">
+                    {errorMessage && <div className="mb-4 text-red-500">{errorMessage}</div>}
                         <div className="mb-4">
                             <label htmlFor="email" className="text-sm p-1 text-gray">Email:</label>
                             <input type="email" placeholder="Enter Email" className="rounded-md pl-2 p-1 w-full" value={email} onChange={(e) => setEmail(e.target.value)}/>
