@@ -40,7 +40,7 @@ export default function MedicalRecordPage() {
   
 
     return (
-        <div className="bg-gray-200 min-h-full">
+        <div className="bg-gradient-to-b from-slate-50 via-slate-50 to-sky-500 min-h-full">
             <NavBar />
             <MedicalRecordInfo />
         </div>

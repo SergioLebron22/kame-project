@@ -41,7 +41,7 @@ export default function DataEntryHome() {
     
     return (
         <>
-            <div className="bg-gray-200 min-h-full justify-between">
+            <div className="bg-gradient-to-b from-slate-50 via-slate-50 to-sky-500 min-h-full justify-between">
                 <NavBar />
                 <h1 className="flex align-center mt-10 justify-start font-bold my-10 ml-24 text-gray-800 text-4xl">Patients List</h1>
                 <PatientsList />

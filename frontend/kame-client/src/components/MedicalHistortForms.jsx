@@ -1,6 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
-import axios, { all } from "axios";
-import { useParams } from 'react-router-dom';
+import axios from "axios";
 
 export default function MedicalHistoryForms(){
     const patientId = localStorage.getItem('patient_id');

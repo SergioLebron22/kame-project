@@ -246,7 +246,6 @@ def create_medical_history(request, patient_id):
             return JsonResponse({'error': str(e)}, status=500)
 
 def get_patient_appointments(request, patient_id):
-
     pass
 
 def create_appointment(request, patient_id):

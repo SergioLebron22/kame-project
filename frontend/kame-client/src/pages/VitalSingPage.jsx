@@ -21,7 +21,7 @@ export default function VitalSignsPage() {
                 setIsAuthenticated(true);
             } else {
                 setIsAuthenticated(false);
-                window.location.href = '/auth/login/';
+                window.location.href = '/auth/login';
             }
         })
         .catch(error => {
@@ -38,7 +38,7 @@ export default function VitalSignsPage() {
     }
     return (
         <>  
-            <div className="bg-gray-200 min-h-screen justify-between">
+            <div className="bg-gradient-to-b from-slate-50 via-slate-50 to-sky-500 min-h-screen justify-between">
                 <NavBar />
                 <VitalSingForms />
             </div>

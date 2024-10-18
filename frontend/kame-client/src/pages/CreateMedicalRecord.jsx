@@ -39,7 +39,7 @@ export default function CreateMedicalRecord() {
     }
 
     return (
-        <div className="bg-gray-200 min-h-screen">
+        <div className="bg-gradient-to-b from-slate-50 via-slate-50 to-sky-500 min-h-screen">
             <NavBar />
             <MedicalRecordForm />
         </div>

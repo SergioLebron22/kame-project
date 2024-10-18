@@ -38,7 +38,7 @@ export default function MedicalHistoryPage(){
     }
     return (
         <>
-            <div className="bg-gray-200 min-h-screen justify-between">
+            <div className="bg-gradient-to-b from-slate-50 via-slate-50 to-sky-500 min-h-screen justify-between">
                 <NavBar />
                 <MedicalHistoryForms /> 
             </div>

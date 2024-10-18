@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
 import axios from "axios";
 // import { useParams } from "react-router-dom";
@@ -50,7 +51,7 @@ export default function VitalSingForms(){
 
     return (
         <>
-            <div className="bg-white p-4 rounded shadow-md m-32">
+            <div className="bg-white p-16 rounded-xl shadow-2xl m-32">
                 <h1 className="text-xl font-bold mb-4">{patient}'s Vital Signs</h1>
                 <div className="mb-4 flex">
                     <form onSubmit={handleSubmit} className="p-4">
