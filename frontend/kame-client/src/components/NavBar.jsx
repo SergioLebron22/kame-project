@@ -1,6 +1,6 @@
 import HeaderLogo from "./HeaderLogo";
 import LogoutButton from "./LogoutButton";
-// import Hamburger from "./Hamburger";
+import Hamburger from "./Hamburger";
 // import SearchBar from "./SearchBar";
 import Sidebar from "./Sidebar";
 import { useState } from "react";
@@ -9,6 +9,7 @@ export default function NavBar() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const name = localStorage.getItem('name');
+    const role = localStorage.getItem('role')
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
@@ -41,9 +42,11 @@ export default function NavBar() {
                                 )}
                             </div>
                         ) : (
-                            <p className="hidden md:block">Not showing</p>
+                            <p className="hidden md:block">No showing</p>
                         )}
-                        {/* <Hamburger toggleSidebar={toggleSidebar}/> */}
+                        {role === 'admin' && (
+                            <Hamburger toggleSidebar={toggleSidebar} />
+                        )}
                     </div>
                 </div>
             </nav>

@@ -15,18 +15,18 @@ export default function Sidebar({ isOpen, toggleSidebar}) {
                 <img src={logo} className="flex h-36 ml-4"/>
             </div>
             <nav className="mt-10">
-                <a href="/home/register-patient/" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">
-                Register Patient info
+                <a href="/dashboard/register-employee" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">
+                Register Employee
                 </a>
-                {/* <a href="/home/create-medical-record/" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">
-                Create Patient Record
-                </a>
-                <a href="#" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">
-                Add Vitals signs
+                <a href="/dashboard/employees" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">
+                Employees on Shift
                 </a>
                 <a href="#" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">
-                Add Medical History
-                </a> */}
+                Add Vitals
+                </a>
+                <a href="#" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">
+                Profile (to be developed)
+                </a>
             </nav>
             <div className="absolute bottom-0 w-full flex align-center justify-center mb-24">
                 <LogoutButton />

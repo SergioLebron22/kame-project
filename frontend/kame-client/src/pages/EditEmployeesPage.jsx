@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
-import NavBar from "../components/NavBar";
-import PatientsList from "../components/PatientsList";
-import axios from "axios";
-import LoadingSpinner from "../components/LoadingSpinner";
-// import { getCookie } from "../csrf";
+import NavBar from '../components/NavBar';
+import EditEmployees from '../components/EmployeeEdit';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-export default function DataEntryHome() {
+export default function EditEmployee() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const role = localStorage.getItem('role')
 
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionID');
@@ -22,9 +19,6 @@ export default function DataEntryHome() {
             console.log('Authentication response:', res.data);
             if (res.data.isAuthenticated) {
                 setIsAuthenticated(true);
-                if (role === 'admin') {
-                    window.location.href = "/dashboard"
-                }
             } else {
                 setIsAuthenticated(false);
                 window.location.href = '/auth/login/';
@@ -36,20 +30,19 @@ export default function DataEntryHome() {
         });
     };
         checkAuth();
-    }, [role]);
+    }, []);
 
     if (!isAuthenticated) {
         console.log('User not auth')
-        return <LoadingSpinner />
+        return <div>Loading...</div>
     }
 
     return (
-        <>
-            <div className="bg-gray-200 min-h-full justify-between">
-                <NavBar role={role} />
-                <h1 className="flex align-center justify-start font-bold my-10 ml-24 text-gray-800 text-4xl">Patients List</h1>
-                <PatientsList />
-            </div>
-        </>
+        <div className='bg-gray-200 min-h-screen justify-between'>
+                <NavBar />
+                <div className='h-full'>
+                    <EditEmployees />
+                </div>
+         </div>
     );
 }
