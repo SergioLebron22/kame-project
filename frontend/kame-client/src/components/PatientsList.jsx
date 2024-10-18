@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import { useNavigate } from "react-router-dom";
-// import PatientElement from "./PatientElement";
 
 export default function PatientsList() {
     const [searchQuery, setSearchQuery] = useState('')
@@ -29,6 +28,19 @@ export default function PatientsList() {
         navigate(`/home/${patient_id}`)
     }
 
+    const handleVitals = (patient_id, name) => {
+        localStorage.setItem('patient_id', patient_id)
+        localStorage.setItem('patient_name', name) 
+        navigate(`/home/${patient_id}/create_vitals`)
+    }
+
+    const handleHistory = (patient_id, name) => {
+        localStorage.setItem('patient_id', patient_id);
+        localStorage.setItem('patient_name', name);
+        navigate(`/home/${patient_id}/create_history/`)
+    }
+
+
     const filteredPatients = patientsList.filter(patient =>
         patient.full_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -49,8 +61,8 @@ export default function PatientsList() {
                                 </div>
                             </div>
                             <div>
-                                <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">Vitals</button>
-                                <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">History</button>
+                                <button onClick={() => handleVitals(patient.patient_id, patient.full_name)} className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">Vitals</button>
+                                <button onClick={() => handleHistory(patient.patient_id, patient.full_name)} className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">History</button>
                                 <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">Details</button>
                             </div>
                         </li>

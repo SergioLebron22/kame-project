@@ -149,8 +149,11 @@ def create_medical_record(request, patient_id):
 @csrf_exempt
 def get_vital_signs(request, patient_id):
     if request.method == 'GET':
-        data = VitalSigns.objects.get(patient_id=patient_id)
-        return JsonResponse(data.to_dict())
+        try: 
+            data = VitalSigns.objects.get(patient_id=patient_id)
+            return JsonResponse(data.to_dict())
+        except VitalSigns.DoesNotExist:
+            return JsonResponse({'error': 'Vital Signs not found'}, status=404)
 
     elif request.method == 'PUT':
         try:
@@ -200,9 +203,12 @@ def create_vital_signs(request, patient_id):
 @csrf_exempt
 def get_medical_history(request, patient_id):
     if request.method == 'GET':
-        data = MedicalHistory.objects.get(patient_id=patient_id)
-        return JsonResponse(data.to_dict())
-
+        try:
+            data = MedicalHistory.objects.get(patient_id=patient_id)
+            return JsonResponse(data.to_dict())
+        except MedicalHistory.DoesNotExist:
+            return JsonResponse({'error': 'Medical History does not exist'}, status=404)
+    
     elif request.method == 'PUT':
         try:
             data = json.loads(request.body)

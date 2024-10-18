@@ -5,7 +5,8 @@ import LandingPage from "./pages/LandingPage"
 import VitalSignsPage from "./pages/VitalSingPage"
 import NoPage from "./pages/NoPage"
 import MedicalRecordPage from "./pages/MedicalRecordPage"
-import CreateMedicalRecord from "./pages/CreateMedicalRecord"
+import MedicalHistoryPage from "./pages/MedicalHistoryPage"
+// import CreateMedicalRecord from "./pages/CreateMedicalRecord"
 
 function App() {
 
@@ -18,8 +19,9 @@ function App() {
           <Route path="/auth/login" element={<LoginPage />}/>
           <Route path="/home/" element={<DataEntryHome />} />
           <Route path="/home/:patientId" element={<MedicalRecordPage />} />
-          <Route path="/home/create-medical-record/" element={<CreateMedicalRecord />} />
+          {/* <Route path="/home/create-medical-record/" element={<CreateMedicalRecord />} /> */}
           <Route path="/home/:patient_id/create_vitals/" element={<VitalSignsPage />} />
+          <Route path="/home/:patiend_id/create_history" element={<MedicalHistoryPage />} />
           <Route path="*" element={<NoPage />}/>
         </Routes>
       </BrowserRouter>
