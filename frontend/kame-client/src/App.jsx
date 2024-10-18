@@ -10,7 +10,6 @@ import MedicalRecordPage from "./pages/MedicalRecordPage"
 import EmployeesList from "./components/EmployeesOnShift"
 import EditEmployee from "./pages/EditEmployeesPage"
 import MedicalHistoryPage from "./pages/MedicalHistoryPage"
-// import CreateMedicalRecord from "./pages/CreateMedicalRecord"
 
 function App() {
 
@@ -27,7 +26,6 @@ function App() {
           <Route path="/edit-employee/:employee_id" element={<EditEmployee />}/>
           <Route path="/home/" element={<DataEntryHome />} />
           <Route path="/home/:patientId" element={<MedicalRecordPage />} />
-          {/* <Route path="/home/create-medical-record/" element={<CreateMedicalRecord />} /> */}
           <Route path="/home/:patient_id/create_vitals/" element={<VitalSignsPage />} />
           <Route path="/home/:patiend_id/create_history" element={<MedicalHistoryPage />} />
           <Route path="*" element={<NoPage />}/>
