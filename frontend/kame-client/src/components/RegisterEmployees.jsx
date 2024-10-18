@@ -54,8 +54,8 @@ const RegisterEmployees = () => {
     };
 
     return (
-        <div className="max-w-2xl w-full h-full mx-auto mt-10 bg-white p-16 rounded-lg shadow-2xl px-16">
-            <h2 className="text-2xl font-bold mb-4">Register New Employee</h2>
+        <div className="max-w-2xl w-full h-full mx-auto mt-10 bg-white p-8 md:p-16 rounded-lg shadow-2xl">
+            <h2 className="text-xl md:text-2xl font-bold mb-4">Register New Employee</h2>
             <form onSubmit={handleRegister}>
                 <div className="mb-4">
                     <label htmlFor="role" className="block text-sm font-medium text-gray-700">Role</label>

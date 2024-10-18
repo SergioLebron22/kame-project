@@ -7,6 +7,10 @@ import NavBar from "./NavBar";
 export default function EmployeesList() {
     const [employeeList, setEmployeeList] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
+    const [employees, setEmployees] = useState(employeeList);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -34,6 +38,40 @@ export default function EmployeesList() {
         navigate(`/edit-employee/${employee_id}`)
     }
 
+    const handleDeleteClick = (employee_id) => {
+        setSelectedEmployeeId(employee_id);
+        setShowPopup(true);
+    };
+
+    const handleConfirmDelete = () => {
+        if (!selectedEmployeeId) {
+            console.error('Employee ID is undefined');
+            return;
+        }
+
+        setShowPopup(false);
+        setShowSuccess(true);
+
+        axios.delete(`http://127.0.0.1:8000/dashboard/users/${selectedEmployeeId}/delete/`)
+            .then(response => {
+                console.log('Employee deleted successfully:', response.data);
+                setShowSuccess(true);
+                window.location.reload();
+                setTimeout(() => {
+                    setShowSuccess(false);
+                }, 3000);
+            })
+            .catch(error => {
+                console.error('Error deleting employee:', error);
+                setShowSuccess(false);
+            });
+    };
+
+    const handleCancelDelete = () => {
+        setShowPopup(false);
+        setSelectedEmployeeId(null);
+    };
+
     const filteredemployees = employeeList.filter(employee =>
         employee.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -57,7 +95,36 @@ export default function EmployeesList() {
                             </div>
                             <div>
                                 <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white" onClick={() => handleEditClick(employee.employee_id)}>Edit</button>
-                                <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">Delete</button>
+                                <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white" onClick={() => handleDeleteClick(employee.employee_id)}>
+                                    Delete
+                                </button>
+                                {showPopup && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+                    <div className="bg-white p-6 rounded-md shadow-md">
+                        <p>Are you sure you want to delete this employee?</p>
+                        <div className="mt-4 flex justify-end">
+                            <button
+                                className="mr-2 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                                onClick={handleConfirmDelete}
+                            >
+                                Yes
+                            </button>
+                            <button
+                                className="px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400"
+                                onClick={handleCancelDelete}
+                            >
+                                No
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showSuccess && (
+                <div className="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-md shadow-md">
+                    Employee deleted successfully!
+                </div>
+            )}
                             </div>
                         </li>
                     ))}
