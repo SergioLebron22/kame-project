@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import BarDisease from '../components/BarChart';
+import LinePatients from '../components/LineChart';
+import PiePatientAge from '../components/PieChart';
 import NavBar from "../components/NavBar";
-import PatientsList from "../components/PatientsList";
-import axios from "axios";
-import LoadingSpinner from "../components/LoadingSpinner";
-// import { getCookie } from "../csrf";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export default function DataEntryHome() {
+export default function AdminPage() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const role = localStorage.getItem('role')
 
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionID');
@@ -22,9 +21,6 @@ export default function DataEntryHome() {
             console.log('Authentication response:', res.data);
             if (res.data.isAuthenticated) {
                 setIsAuthenticated(true);
-                if (role === 'admin') {
-                    window.location.href = "/dashboard"
-                }
             } else {
                 setIsAuthenticated(false);
                 window.location.href = '/auth/login/';
@@ -40,16 +36,24 @@ export default function DataEntryHome() {
 
     if (!isAuthenticated) {
         console.log('User not auth')
-        return <LoadingSpinner />
+        return <div>Loading...</div>
     }
-
     return (
-        <>
-            <div className="bg-gray-200 min-h-full justify-between">
-                <NavBar role={role} />
-                <h1 className="flex align-center justify-start font-bold my-10 ml-24 text-gray-800 text-4xl">Patients List</h1>
-                <PatientsList />
+        <div>
+            <NavBar />
+            <div className="w-screen p-4 bg-white shadow-lg rounded-lg">
+                <div className="flex flex-col space-y-4">
+                    <BarDisease />
+                    <div className="flex w-full space-x-4">
+                        <div className="w-1/2 h-96 p-4 border">
+                            <PiePatientAge />
+                        </div>
+                        <div className="w-1/2 h-96 p-4 border">
+                            <LinePatients />
+                        </div>
+                    </div>
+                </div>
             </div>
-        </>
+        </div>
     );
 }

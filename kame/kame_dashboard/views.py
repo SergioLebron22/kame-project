@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from kame_app.models import Patient, CustomUser, MedicalRecord
 import json
-# from django.core import serializers
+from datetime import date
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 
@@ -84,5 +84,22 @@ def create_employee(request):
             return JsonResponse({'message': 'User created successfully', 'user_id': user.employee_id}, status=201)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+def get_patient_visits(request):
+    if request.method == 'GET':
+        try:
+            today = date.today()
+            patients = Patient.objects.filter(last_visited=today)
+            visits = patients.count()
+
+            # data = {
+            #     "date": today,
+            #     "visits": visits,
+            # }
+            return JsonResponse(patients)
+        except Exception as e:
+            return JsonResponse({'error': 'An error occurred while fetching patient visits.'}, status=500)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)

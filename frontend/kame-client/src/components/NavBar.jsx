@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function NavBar() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const name = localStorage.getItem('name');
+    const role = localStorage.getItem('role')
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
@@ -20,9 +21,11 @@ export default function NavBar() {
                         {name ? (
                             <p className="font-semibold text-sky-600 hidden md:block mr-4">Logged in as {name}</p>
                         ) : (
-                            <p className="hidden md:block">No showing</p>
+                            <p className="hidden md:block">Not showing</p>
                         )}
-                        <Hamburger toggleSidebar={toggleSidebar}/>
+                        {role === 'admin' && (
+                            <Hamburger toggleSidebar={toggleSidebar} />
+                        )}
                     </div>
                 </div>
             </nav>

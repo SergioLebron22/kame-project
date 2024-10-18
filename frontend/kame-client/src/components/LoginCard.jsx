@@ -17,15 +17,19 @@ export default function LoginCard() {
             .then(response => {
                 console.log(response.data);
                 if (response.data.role === 'admin') {
-                    console.log(response.data)
-                    
-                    //window.location.href = '/dashboard';
+                    console.log(response.data.role)
+                    localStorage.setItem('role', response.data.role)
+                    localStorage.setItem('sessionID', response.data.sessionID)
+                    let session = localStorage.getItem('sessionID')
+                    console.log(session)
+                    localStorage.setItem('name', response.data.name)
+                    window.location.href = '/dashboard';
                 } else {
                     console.log(response.data)
                     localStorage.setItem('sessionID', response.data.sessionID)
                     localStorage.setItem('name', response.data.name)
                     localStorage.setItem('role', response.data.role)
-                    
+
                     window.location.href = '/home'
                 }
             })
@@ -55,4 +59,4 @@ export default function LoginCard() {
             </div>
         </>
     );
-} 
+}
