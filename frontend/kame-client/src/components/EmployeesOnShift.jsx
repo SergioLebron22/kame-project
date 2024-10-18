@@ -29,6 +29,11 @@ export default function EmployeesList() {
         navigate('/dashboard/');
     }
 
+    const handleEditClick = (employee_id) => {
+        localStorage.setItem('employee_id', employee_id);
+        navigate(`/edit-employee/${employee_id}`)
+    }
+
     const filteredemployees = employeeList.filter(employee =>
         employee.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -51,7 +56,7 @@ export default function EmployeesList() {
                                 </div>
                             </div>
                             <div>
-                                <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">Edit</button>
+                                <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white" onClick={() => handleEditClick(employee.employee_id)}>Edit</button>
                                 <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">Delete</button>
                             </div>
                         </li>

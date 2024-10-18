@@ -7,6 +7,7 @@ import AdminPage from "./pages/AdminPage"
 import EmployeeCreation from "./pages/RegisterEmployeePage"
 import MedicalRecordPage from "./pages/MedicalRecordPage"
 import EmployeesList from "./components/EmployeesOnShift"
+import EditEmployee from "./pages/EditEmployeesPage"
 // import CreateMedicalRecord from "./pages/CreateMedicalRecord"
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/dashboard/register-employee" element={<EmployeeCreation />}/>
           <Route path="/auth/login" element={<LoginPage />}/>
           <Route path="/dashboard/employees" element={<EmployeesList />}/>
+          <Route path="/edit-employee/:employee_id" element={<EditEmployee />}/>
           <Route path="/home/" element={<DataEntryHome />} />
           <Route path="/home/:patientId" element={<MedicalRecordPage />} />
           {/* <Route path="/home/create-medical-record/" element={<CreateMedicalRecord />} /> */}
