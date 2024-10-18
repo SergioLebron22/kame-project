@@ -97,7 +97,7 @@ const PiePatientAge = () => {
     }, []);
 
     return (
-        <div className="w-full h-full">
+        <div className="flex justify-center align-center w-full h-full">
             <Pie
                 data={pieData}
                 options={{

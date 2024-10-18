@@ -54,7 +54,7 @@ const RegisterEmployees = () => {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-10">
+        <div className="max-w-2xl w-full h-full mx-auto mt-10 bg-white p-16 rounded-lg shadow-2xl px-16">
             <h2 className="text-2xl font-bold mb-4">Register New Employee</h2>
             <form onSubmit={handleRegister}>
                 <div className="mb-4">
@@ -105,7 +105,7 @@ const RegisterEmployees = () => {
                 {success && <p className="text-green-500 text-sm">{success}</p>}
                 <button
                     type="submit"
-                    className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-500 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Register
                 </button>

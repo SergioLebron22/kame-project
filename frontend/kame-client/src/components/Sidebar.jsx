@@ -18,7 +18,7 @@ export default function Sidebar({ isOpen, toggleSidebar}) {
                 <a href="/dashboard/register-employee" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">
                 Register Employee
                 </a>
-                <a href="#" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">
+                <a href="/dashboard/employees" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">
                 Employees on Shift
                 </a>
                 <a href="#" className="block text-center py-2.5 px-4 my-5 rounded transition duration-200 hover:bg-sky-400 hover:text-white">

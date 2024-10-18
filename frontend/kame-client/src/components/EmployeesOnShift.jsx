@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import EmployeeSearchBar from "./EmployeeSearchBar";
+import NavBar from "./NavBar";
 
 export default function EmployeesList() {
     const [employeeList, setEmployeeList] = useState([]);
@@ -33,7 +34,9 @@ export default function EmployeesList() {
     );
 
     return (
-        <>
+        <div className="bg-gray-200 min-h-full justify-between">
+            <NavBar />
+            <h1 className="flex align-center justify-start font-bold my-10 ml-24 text-gray-800 text-4xl">Employees List</h1>
             <div className="flex justify-start ml-20">
                 <EmployeeSearchBar onSearch={handleQuery}/>
             </div>
@@ -55,6 +58,7 @@ export default function EmployeesList() {
                     ))}
                 </ul>
             </div>
-        </>
+            <div className="text-gray-200">.</div>
+        </div>
     );
 }
