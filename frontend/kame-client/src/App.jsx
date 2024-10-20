@@ -21,9 +21,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<LandingPage />}/>
+          <Route path="/login" element={<LoginPage />}/>
           <Route path="/dashboard" element={<AdminPage />}/>
           <Route path="/dashboard/register-employee" element={<EmployeeCreation />}/>
-          <Route path="/login" element={<LoginPage />}/>
           <Route path="/dashboard/employees" element={<EmployeesList />}/>
           <Route path="/edit-employee/:employee_id" element={<EditEmployee />}/>
           <Route path="/home" element={<DataEntryHome />} />

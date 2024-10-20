@@ -57,23 +57,23 @@ export default function VitalSingForms(){
                     <form onSubmit={handleSubmit} className="p-4">
                         <div className="mt-5 flex">
                             <label className="block mb-1 mr-2" >Pulse:</label>
-                            <input type="text" placeholder="Ex. 72 bmp" className="border-2 rounded p-1 w-full" value={pulse} onChange={(e) => setPulse(e.target.value)} />
+                            <input type="text" placeholder="Ex. 72 bmp" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={pulse} onChange={(e) => setPulse(e.target.value)} />
                         </div>
                         <div className="mt-5 flex">
                             <label className="text-nowrap block mb-1 mr-2">Respiratory Rate:</label> 
-                            <input type="text" placeholder="Ex. 16 breaths/min" className="border-2 rounded p-1 w-full"  value={respiratoryRate} onChange={(e) => setRespiratoryRate(e.target.value)} />
+                            <input type="text" placeholder="Ex. 16 breaths/min" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"  value={respiratoryRate} onChange={(e) => setRespiratoryRate(e.target.value)} />
                         </div>
                         <div className="mt-5 flex">
                             <label className="block mb-1 mr-2">temperature </label>
-                            <input type="text" placeholder="Ex.36.6°f" className="border-2 rounded p-1 w-full" value={temperature} onChange={(e)=> setTemperature(e.target.value)} />  
+                            <input type="text" placeholder="Ex.36.6°f" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={temperature} onChange={(e)=> setTemperature(e.target.value)} />  
                         </div>
                         <div className="mt-5 flex">
                             <label className="block mb-1 mr-2">weight</label>
-                            <input type="text"  placeholder="Ex.70lbs" className="border-2 rounded p-1 w-full" value={weight} onChange={(e) => setWeight(e.target.value)} />
+                            <input type="text"  placeholder="Ex.70lbs" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={weight} onChange={(e) => setWeight(e.target.value)} />
                         </div>
                         <div className="mt-5 flex">
                             <label className="block mb-1 mr-2">height</label>
-                            <input type="text" placeholder="Ex. 6.1ft" className="border-2 rounded p-1 w-full" value={height} onChange={(e) => setHeight(e.target.value)} />
+                            <input type="text" placeholder="Ex. 6.1ft" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={height} onChange={(e) => setHeight(e.target.value)} />
                         </div>
                         <button className="p-1 px-2 bg-sky-400 mt-5 rounded-md hover:bg-sky-500 border-2 border-sky-500 text-white" type="submit">Submit</button>
                     </form>

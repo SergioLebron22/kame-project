@@ -22,12 +22,12 @@ export default function RegisterPatien() {
                 setIsAuthenticated(true);
             } else {
                 setIsAuthenticated(false);
-                window.location.href = '/auth/login/';
+                window.location.href = '/login/';
             }
         })
         .catch(error => {
             console.error('There was an error checking authentication!', error);
-            window.location.href = '/auth/login/';
+            window.location.href = '/login/';
         });
     };
         checkAuth();
@@ -39,7 +39,7 @@ export default function RegisterPatien() {
     }
 
     return (
-        <div className="bg-gray-200 min-h-screen justify-between">
+        <div className="bg-gradient-to-b from-gray-100 via-gray-100 to-sky-500 min-h-screen justify-between">
             <NavBar />
             <RegisterCard />
         </div>

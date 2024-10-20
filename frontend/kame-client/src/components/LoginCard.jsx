@@ -46,19 +46,43 @@ export default function LoginCard() {
 
     return (
         <>
-            <div className="min-h-screen bg-gradient-to-b from-slate-50 via-slate-50 to-sky-500 flex items-center justify-center">
-                <div className="flex flex-col items-center justify-center h-full w-96 bg-gray-100 shadow-2xl rounded-md p-10 py-20">
+            <div className="min-h-screen bg-gradient-to-b from-gray-100 via-gray-100 to-sky-500 flex items-center justify-center">
+                <div className="flex flex-col items-center justify-center h-full w-96 bg-white shadow-2xl rounded-md p-10 py-20">
                     <img src={logo} alt="logo" className="mb-5 h-48" />
                     <h1 className="text-3xl font-bold mb-4 text-sky-500">LOGIN</h1>
                     <form onSubmit={handleLogin} className="w-auto max-w-sm p-6 pb-10 rounded-lg">
                     {errorMessage && <div className="mb-4 text-red-500">{errorMessage}</div>}
-                        <div className="mb-4">
-                            <label htmlFor="email" className="text-sm p-1 text-gray">Email:</label>
-                            <input type="email" placeholder="Enter Email" className="rounded-md pl-2 p-1 w-full" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        <div className="input flex flex-col w-fit static my-5">
+                        <label
+                            htmlFor="input"
+                            className="text-sky-500 text-xs font-semibold relative top-2 ml-[7px] px-[3px] bg-white w-fit"
+                            >Email:</label
+                        >
+                        <input
+                            id="password"
+                            type="email"
+                            placeholder="Write here..."
+                            name="input"
+                            className="border-sky-500 input px-[10px] py-[11px] text-xs bg-white border-2 rounded-[5px] w-[210px] focus:outline-none placeholder:text-black/25"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                         </div>
-                        <div>
-                            <label htmlFor="password" className="text-sm p-1">Password:</label>
-                            <input type="password" placeholder="Enter password " className="rounded-md pl-2 p-1 w-full" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <div className="input flex flex-col w-fit static">
+                        <label
+                            htmlFor="input"
+                            className="text-sky-500 text-xs font-semibold relative top-2 ml-[7px] px-[3px] bg-white w-fit"
+                            >Password:</label
+                        >
+                        <input
+                            id="password"
+                            type="password"
+                            placeholder="Write here..."
+                            name="input"
+                            className="border-sky-500 input px-[10px] py-[11px] text-xs bg-white border-2 rounded-[5px] w-[210px] focus:outline-none placeholder:text-black/25"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
                         </div>
                         <button className="text-white bg-sky-500 hover:bg-blue-500 px-2 py-1 w-full mt-10 rounded-md ">Login</button>
                     </form>

@@ -4,6 +4,7 @@ import PiePatientAge from '../components/PieChart';
 import NavBar from "../components/NavBar";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function AdminPage() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -23,12 +24,12 @@ export default function AdminPage() {
                 setIsAuthenticated(true);
             } else {
                 setIsAuthenticated(false);
-                window.location.href = '/auth/login/';
+                window.location.href = '/login/';
             }
         })
         .catch(error => {
             console.error('There was an error checking authentication!', error);
-            window.location.href = '/auth/login/';
+            window.location.href = '/login/';
         });
     };
         checkAuth();
@@ -36,7 +37,7 @@ export default function AdminPage() {
 
     if (!isAuthenticated) {
         console.log('User not auth')
-        return <div>Loading...</div>
+        return <LoadingSpinner />
     }
     return (
         <div>

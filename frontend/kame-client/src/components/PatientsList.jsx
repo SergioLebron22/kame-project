@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 export default function PatientsList() {
     const [searchQuery, setSearchQuery] = useState('')
     const [patientsList, setPatientsList] = useState([]);
-    const [medicalRecord, setMedicalRecord] = useState(null);
+    const [medicalRecordStatus, setMedicalRecordStatus] = useState({});
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,11 +16,28 @@ export default function PatientsList() {
             .then(response => {
                 console.log(response.data);
                 setPatientsList(response.data);
+                fetchMedicalRecords(response.data);
             })
             .catch(error => {
                 console.error("There was an error fetching the patients!", error);
             });
     }, []);
+
+    const fetchMedicalRecords = (patients) => {
+        const status = {};
+        patients.forEach(patient => {
+            axios.get(`http://127.0.0.1:8000/home/patients/${patient.patient_id}/medical_record/`)
+                .then(response => {
+                    status[patient.patient_id] = true;
+                })
+                .catch(error => {
+                    status[patient.patient_id] = false;
+                })
+                .finally(() => {
+                    setMedicalRecordStatus(prevStatus => ({ ...prevStatus, ...status }));
+                });
+        });
+    };
 
     const handleQuery = (query) => {
         setSearchQuery(query);
@@ -69,18 +87,23 @@ export default function PatientsList() {
             </div>
             <div className="mx-20 mt-3 p-5 bg-white min-h-screen rounded-lg border-2 border-gray-300 shadow-xl">
                 <ul role="list" className="divide-y divide-gray-400">
-                    {filteredPatients.map((patient) => (
-                        <li key={patient.patient_id} className="flex justify-between gap-x-6 py-5 border-b-2" >
+                {filteredPatients.map((patient) => (
+                        <li key={patient.patient_id} className="flex justify-between gap-x-6 py-5 border-b-2">
                             <div className="min-w-0 gap-x-4">
                                 <div className="min-w-0 flex-auto p-3">
                                     <p onClick={() => handlePatientClick(patient.patient_id)} className="text-sm font-semibold leading-6 text-gray-900">{patient.full_name}</p>
-                                    <p className="leading-5 text-xs text-gray-600">Date of Birth: {patient.date_of_birth}</p>
+                                    <p className="leading-5 text-xs text-gray-600"><strong>Date of Birth:</strong> {patient.date_of_birth}</p>
+                                    <p className="leading-5 text-xs text-gray-600">
+                                        <strong>Medical Record:</strong> {medicalRecordStatus[patient.patient_id] ? 'Created' : 'No Record'}
+                                    </p>
                                 </div>
                             </div>
-                            <div>
-                                <button onClick={() => handleVitals(patient.patient_id, patient.full_name)} className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">Vitals</button>
-                                <button onClick={() => handleHistory(patient.patient_id, patient.full_name)} className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">History</button>
-                                <button onClick={() => handleCreateRecord(patient.patient_id, patient.full_name)} className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">Create Record</button>
+                            <div>  
+                            </div>
+                            <div className="flex">
+                                <button onClick={() => handleVitals(patient.patient_id, patient.full_name)} className="mt-3 mr-5 px-3 py-1 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">Vitals</button>
+                                <button onClick={() => handleHistory(patient.patient_id, patient.full_name)} className="mt-3 mr-5 px-3 py-1 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">History</button>
+                                <button onClick={() => handleCreateRecord(patient.patient_id, patient.full_name)} className="mt-3 mr-5 px-3 py-1 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">Create Record</button>
                             </div>
                         </li>
                     ))}

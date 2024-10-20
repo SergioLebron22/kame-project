@@ -29,11 +29,6 @@ export default function EmployeesList() {
         setSearchQuery(query);
     }
 
-    const handleEmployeeClick = (employee_id) => {
-        localStorage.setItem('employee_id', employee_id);
-        navigate('/dashboard/');
-    }
-
     const handleEditClick = (employee_id) => {
         localStorage.setItem('employee_id', employee_id);
         navigate(`/edit-employee/${employee_id}`)
@@ -78,7 +73,7 @@ export default function EmployeesList() {
     );
 
     return (
-        <div className="bg-gray-200 min-h-full justify-between">
+        <div className="bg-gradient-to-b from-gray-100 via-gray-100 to-sky-500 min-h-full justify-between">
             <NavBar />
             <h1 className="flex align-center justify-start font-bold my-10 ml-24 text-gray-800 text-4xl">Employees List</h1>
             <div className="flex justify-start ml-20">
@@ -90,10 +85,10 @@ export default function EmployeesList() {
                         <li key={employee.employee_id} className="flex justify-between gap-x-6 py-5 border-b-2" >
                             <div className="min-w-0 gap-x-4">
                                 <div className="min-w-0 flex-auto p-3">
-                                    <p onClick={() => handleEmployeeClick(employee.employee_id)} className="text-sm font-semibold leading-6 text-gray-900">{employee.name}</p>
+                                    <p className="text-sm font-semibold leading-6 text-gray-900">{employee.name}</p>
                                     <p className="leading-5 text-xs text-gray-600">Role: {employee.role}</p>
                                 </div>
-                            </div>
+                            </div> 
                             <div>
                                 <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white" onClick={() => handleEditClick(employee.employee_id)}>Edit</button>
                                 <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white" onClick={() => handleDeleteClick(employee.employee_id)}>
