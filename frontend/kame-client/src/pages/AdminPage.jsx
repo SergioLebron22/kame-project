@@ -7,6 +7,7 @@ import axios from 'axios';
 
 export default function AdminPage() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const name = localStorage.getItem('name')
 
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionID');
@@ -39,19 +40,45 @@ export default function AdminPage() {
         return <div>Loading...</div>
     }
     return (
-        <div>
+        <div className="min-h-screen  bg-gradient-to-b from-slate-50 via-slate-50 to-sky-500">
             <NavBar />
-            <div className="w-screen p-4 bg-white shadow-lg rounded-lg">
-                <div className="flex flex-col space-y-4">
-                    <BarDisease />
-                    <div className="flex w-full space-x-4">
-                        <div className="w-1/2 h-96 p-4 border">
-                            <PiePatientAge />
-                        </div>
-                        <div className="w-1/2 h-96 p-4 border">
-                            <LinePatients />
-                        </div>
+            <div className="p-8">
+                {/* Header Section */}
+                <div className="bg-sky-500 text-white p-6 rounded-lg shadow-lg mb-6">
+                    <h1 className="text-2xl font-bold">Welcome Back {name}!</h1>
+                    <p className="text-lg">Have a nice day!</p>
+                </div>
+
+                {/* Main Dashboard Content */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    {/* Bar Chart */}
+                    <div className="col-span-2 bg-white p-12 rounded-lg shadow-lg">
+                        <h2 className="text-xl font-semibold">Diseases</h2>
+                        <div className='h-48'><BarDisease /></div>
                     </div>
+
+                    {/* Pie Chart and Line Chart */}
+                    <div className="bg-white p-6 rounded-lg shadow-lg">
+                        <h2 className="text-xl font-semibold mb-4">Population by Age</h2>
+                        <PiePatientAge />
+                    </div>
+                    <div className="bg-white p-6 rounded-lg shadow-lg">
+                        <h2 className="text-xl font-semibold mb-4">Patient Visits (Daily)</h2>
+                        <LinePatients />
+                    </div>
+                </div>
+
+                {/* Export and Actions Section */}
+                <div className="flex justify-end space-x-4 mt-6">
+                    <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded shadow">
+                        Employees on Shift
+                    </button>
+                    <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded shadow">
+                        Check Medical Records
+                    </button>
+                    <button className="bg-blue-600 text-white px-4 py-2 rounded shadow">
+                        Export
+                    </button>
                 </div>
             </div>
         </div>

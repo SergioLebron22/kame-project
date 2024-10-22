@@ -1,5 +1,5 @@
 import { Line } from 'react-chartjs-2';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
     Chart as ChartJS,
@@ -13,33 +13,32 @@ const LinePatients = () => {
         labels: [],
         datasets: [
             {
-                label: 'Patients Visiting Today',
+                label: 'Patients Visiting by Month',
                 backgroundColor: 'rgba(153, 102, 255, 0.2)',
                 borderColor: 'rgba(153, 102, 255, 1)',
-                borderWidth: 1,
+                borderWidth: 2,
                 data: [],
             },
         ],
     });
 
-    const chartRef = useRef(null);
-
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/dashboard/patients_visiting/')
+        axios.get('http://127.0.0.1:8000/dashboard/patients_dashboard/')
             .then(response => {
                 const data = response.data;
 
-                const lineLabels = data.map(record => new Date(record.date).toLocaleDateString());
-                const lineCounts = data.map(record => record.last_visited);
+                // Extract the month labels and counts from the response
+                const lineLabels = data.map(item => item.month);  // e.g., 'January 2024'
+                const lineCounts = data.map(item => item.count);  // Patient counts for each month
 
                 setLineData({
                     labels: lineLabels,
                     datasets: [
                         {
-                            label: 'Patients Visiting Today',
+                            label: 'Patients Visiting by Month',
                             backgroundColor: 'rgba(153, 102, 255, 0.2)',
                             borderColor: 'rgba(153, 102, 255, 1)',
-                            borderWidth: 1,
+                            borderWidth: 2,
                             data: lineCounts,
                         },
                     ],
@@ -50,15 +49,9 @@ const LinePatients = () => {
             });
     }, []);
 
-    useEffect(() => {
-        if (chartRef.current) {
-            chartRef.current.destroy();
-        }
-    }, [lineData]);
-
     return (
         <div className="w-full h-full">
-            <Line data={lineData} />
+            <Line data={lineData} options={{ responsive: true }} />
         </div>
     );
 };

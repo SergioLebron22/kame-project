@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import EmployeeSearchBar from "./EmployeeSearchBar";
 import NavBar from "./NavBar";
+import BackButton from "./BackButton";
 
 export default function EmployeesList() {
     const [employeeList, setEmployeeList] = useState([]);
@@ -80,6 +81,7 @@ export default function EmployeesList() {
     return (
         <div className="bg-gray-200 min-h-full justify-between">
             <NavBar />
+            <BackButton />
             <h1 className="flex align-center justify-start font-bold my-10 ml-24 text-gray-800 text-4xl">Employees List</h1>
             <div className="flex justify-start ml-20">
                 <EmployeeSearchBar onSearch={handleQuery}/>
