@@ -35,10 +35,12 @@ export default function MedicalRecordInfo() {
             {errorMessage && <div className="error">{errorMessage}</div>}
             <h1 className="flex align-center justify-start font-bold my-10 ml-80 text-gray-800 text-4xl">Medical Record</h1>
             <div className='m-10 md:mx-80 bg-white p-14 rounded-lg shadow-2xl'>
-                <p className='font-semibold text-2xl'>{medicalRecord.patient_id?.full_name || 'Patient record does not exist'}</p>
+                <p className='font-semibold text-2xl mb-3'>{medicalRecord.patient_id?.full_name || 'Patient record does not exist'}</p>
                 <p><strong>Date of birth: </strong>{medicalRecord.patient_id?.date_of_birth || ''}</p>
                 <p><strong>Address: </strong>{medicalRecord.patient_id?.address || ''}, {medicalRecord.patient_id?.city || ''}, {medicalRecord.patient_id?.country || ''}</p>
                 <p><strong>Gender:</strong> {medicalRecord.patient_id?.gender}</p>
+                <p><strong>Phone Number:</strong> {medicalRecord.patient_id?.phone_number}</p>
+                <p><strong>Record Number:</strong> {medicalRecord.record_id}</p>
             </div>
             <div className='flex grid-cols-2 gap-6 align-center justify-center min-w-screen mx-10 md:mx-80 h-96'>
                 <div className='p-10 bg-white w-full rounded-xl shadow-2xl'>
@@ -67,7 +69,7 @@ export default function MedicalRecordInfo() {
                 <h1 className='text-lg font-semibold'>Progress Notes</h1>
                 <p className='mt-5 ml-3'>{medicalRecord.progress_notes}</p>
             </div>
-            <div className=''>.</div>
+            <div className='text-gray-200'>.</div>
         </>
     );
 }

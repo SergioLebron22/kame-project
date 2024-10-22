@@ -158,7 +158,7 @@ class MedicalRecord(models.Model):
             "code": self.code.to_dict(),
             "history_id": self.history_id.to_dict(),
             "vitals_id": self.vitals_id.to_dict(),
-            "pogress_notes": self.progress_notes,
+            "progress_notes": self.progress_notes,
             "lab_data": self.lab_data,
             "imaging_reports": self.imaging_reports,
             "medications": self.medications,
