@@ -2,6 +2,7 @@ import NavBar from "../components/NavBar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import MedicalRecordInfo from "../components/MedicalRecordInfo";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function MedicalRecordPage() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -22,12 +23,12 @@ export default function MedicalRecordPage() {
                 setIsAuthenticated(true);
             } else {
                 setIsAuthenticated(false);
-                window.location.href = '/auth/login/';
+                window.location.href = '/login/';
             }
         })
         .catch(error => {
             console.error('There was an error checking authentication!', error);
-            window.location.href = '/auth/login/';
+            window.location.href = '/login/';
         });
     };
         checkAuth();
@@ -35,12 +36,12 @@ export default function MedicalRecordPage() {
 
     if (!isAuthenticated) {
         console.log('User not auth')
-        return <div>Loading...</div>
+        return <LoadingSpinner />
     }
   
 
     return (
-        <div className="bg-gray-200 min-h-full">
+        <div className="bg-gradient-to-b from-slate-50 via-slate-50 to-sky-500 min-h-full">
             <NavBar />
             <MedicalRecordInfo />
         </div>

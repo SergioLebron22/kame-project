@@ -37,9 +37,9 @@ const EditEmployees = () => {
         }
 
     return (
-        <div className='bg-gray-100 p-6 rounded-lg shadow-lg'>
-            <h1 className='text-2xl font-bold mb-4'>Edit Employee</h1>
-            <form onSubmit={handleSubmit} className='space-y-4'>
+        <div className='bg-white mx-20 mt-20 md:mx-80 p-16 rounded-lg shadow-2xl'>
+            <h1 className='text-2xl font-bold mb-4 ml-40'>Edit Employee</h1>
+            <form onSubmit={handleSubmit} className='space-y-4 mx-40'>
                 <div>
                     <label className='block text-sm font-medium text-gray-700'>
                         Name:
@@ -91,7 +91,7 @@ const EditEmployees = () => {
                 <div>
                     <button
                         type="submit"
-                        className='w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                        className='w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-400 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                     >
                         Save
                     </button>
