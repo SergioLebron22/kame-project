@@ -41,14 +41,11 @@ export default function EmployeeCreation() {
 
     return (
         <div className='bg-gradient-to-b from-gray-100 via-gray-100 to-sky-500 min-h-screen justify-between'>
-        <div>
-        <div className='bg-gray-200 min-h-screen justify-between'>
             <NavBar />
             <BackButton />
             <div className='h-full'>
                 <RegisterEmployees />
             </div>
-        </div>
         </div>
     )
 }

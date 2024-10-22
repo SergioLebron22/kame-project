@@ -71,12 +71,12 @@ const BarDisease = () => {
                 onChange={handleSearchChange}
                 className="border p-2 mb-2 w-1/3"
             />
-            {filteredOptions.length > 0 && (
+            {filteredOptions.length > 0 && searchTerm && (
                 <ul className="bg-white border border-gray-300 rounded shadow-md mb-2">
-                    {filteredOptions.map(option => (
-                        <li key={option.code} onClick={() => handleCodeSelect(option.code)} className="cursor-pointer hover:bg-gray-100 p-2">
-                            {option.code} - {option.description}
-                        </li>
+                {filteredOptions.map(option => (
+                    <li key={option.code} onClick={() => handleCodeSelect(option.code)} className="cursor-pointer hover:bg-gray-100 p-2">
+                        {option.code} - {option.description}
+                    </li>
                     ))}
                 </ul>
             )}

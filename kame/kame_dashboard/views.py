@@ -73,7 +73,10 @@ def get_patients_dashboard(request):
 
         # Format the data for JSON response
         response_data = [
-            {'month': item['month'].strftime('%B %Y'), 'count': item['count']}
+            {
+                'month': item['month'].strftime('%B %Y') if item['month'] else 'No Date',
+                'count': item['count']
+            }
             for item in data
         ]
         return JsonResponse(response_data, safe=False)
@@ -102,19 +105,9 @@ def create_employee(request):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-def get_patient_visits(request):
+def get_patients_all(request):
     if request.method == 'GET':
-        try:
-            today = date.today()
-            patients = Patient.objects.filter(last_visited=today)
-            visits = patients.count()
-
-            # data = {
-            #     "date": today,
-            #     "visits": visits,
-            # }
-            return JsonResponse(patients)
-        except Exception as e:
-            return JsonResponse({'error': 'An error occurred while fetching patient visits.'}, status=500)
+        data = Patient.objects.all()
+        return JsonResponse([patient.to_dict() for patient in data], safe=False)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)

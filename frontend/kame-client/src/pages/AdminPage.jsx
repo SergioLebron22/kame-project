@@ -55,7 +55,7 @@ export default function AdminPage() {
                     {/* Bar Chart */}
                     <div className="col-span-2 bg-white p-12 rounded-lg shadow-lg">
                         <h2 className="text-xl font-semibold">Diseases</h2>
-                        <div className='h-48'><BarDisease /></div>
+                        <div className='h-auto'><BarDisease /></div>
                     </div>
 
                     {/* Pie Chart and Line Chart */}

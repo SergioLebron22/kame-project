@@ -37,7 +37,7 @@ const PiePatientAge = () => {
     });
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/dashboard/patients_dashboard/')
+        axios.get('http://127.0.0.1:8000/dashboard/patients/')
             .then(response => {
                 const data = response.data;
 
