@@ -13,8 +13,24 @@ from django.core.paginator import Paginator
 @csrf_exempt
 def patients(request):
     if request.method == 'GET':
-        data = Patient.objects.all()
-        return JsonResponse([patient.to_dict() for patient in data], safe=False)
+        search_query = request.GET.get('query', '')
+        page_number = request.GET.get('page', 1)
+        page_size = request.GET.get('page_size', 10)
+
+        if search_query:
+            patients = Patient.objects.filter(full_name__icontains=search_query)
+        else:
+            patients = Patient.objects.all()
+
+        paginator = Paginator(patients, page_size)
+        page_obj = paginator.get_page(page_number)
+
+        data = {
+            'patients': [patient.to_dict() for patient in page_obj],
+            'total_pages': paginator.num_pages,
+            'current_page': page_obj.number,
+        }
+        return JsonResponse(data, safe=False)
     else:
         return JsonResponse({'error': 'Invalid HTTP method'}, status=405)
 

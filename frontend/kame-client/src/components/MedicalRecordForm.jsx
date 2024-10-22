@@ -22,9 +22,7 @@ export default function MedicalRecordForm() {
 
     const newMedicalRecord = {
         patient_id: patientId,
-        // history_id: historyId,
-        // vitals_id: vitalsId,
-        code: code,
+        code: code, // This can be null
         progress_notes: progressNotes,
         lab_data: labData,
         imaging_reports: imagingReports,
@@ -78,9 +76,15 @@ export default function MedicalRecordForm() {
     };
 
     const handleSuggestionClick = (code) => {
-        setSelectedCode(code);
-        setSearchQuery(code.description);
-        setCode(code.code);
+        if (code) {
+            setSelectedCode(code);
+            setSearchQuery(code.description);
+            setCode(code.code);
+        } else {
+            setSelectedCode(null);
+            setSearchQuery('');
+            setCode(null);
+        }
     };
 
     const handleOnSubmit = async (e) => {
@@ -91,25 +95,51 @@ export default function MedicalRecordForm() {
 
             if (response.data) {
                 try {
-                    await axios.put(`http://127.0.0.1:8000/home/patients/${patientId}/medical_record/`, newMedicalRecord);
+                    await axios.put(`http://127.0.0.1:8000/home/patients/${patientId}/medical_record/`, newMedicalRecord, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
                     console.log('Medical Record updated successfully!');
                     window.location.href = '/home/';
                 } catch (error) {
-                    console.error('There was an error fetching Vitals or history', error);
+                    console.error('There was an error updating the medical record', error);
                 }
             }
         } catch (error) {
             if (error.response && error.response.status === 404) {
                 try {
-                    const createResponse = await axios.post(`http://127.0.0.1:8000/home/patients/${patientId}/create_medical_record/`, newMedicalRecord);
+                    const createResponse = await axios.post(`http://127.0.0.1:8000/home/patients/${patientId}/create_medical_record/`, newMedicalRecord, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
                     console.log(createResponse.data);
                     console.log('Medical record created successfully!');
                     window.location.href = '/home/';
                 } catch (error) {
                     console.error('There was an error creating the medical record', error);
+                    if (error.response) {
+                        console.error('Response data:', error.response.data);
+                        console.error('Response status:', error.response.status);
+                        console.error('Response headers:', error.response.headers);
+                    } else if (error.request) {
+                        console.error('Request data:', error.request);
+                    } else {
+                        console.error('Error message:', error.message);
+                    }
                 }
             } else {
                 console.error('Error fetching medical record', error);
+                if (error.response) {
+                    console.error('Response data:', error.response.data);
+                    console.error('Response status:', error.response.status);
+                    console.error('Response headers:', error.response.headers);
+                } else if (error.request) {
+                    console.error('Request data:', error.request);
+                } else {
+                    console.error('Error message:', error.message);
+                }
             }
         }
     };
@@ -142,7 +172,7 @@ export default function MedicalRecordForm() {
                             />
                             {loading && <div>Loading...</div>}
                             {searchQuery && filteredCodes.length > 0 && (
-                                <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-h-40 overflow-y-auto">
+                                <ul className="absolute z-10 w-full ml-4 bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-h-40 overflow-y-auto">
                                     {filteredCodes.map((code, index) => (
                                         <li
                                             key={index}
