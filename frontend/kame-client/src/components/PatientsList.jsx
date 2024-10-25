@@ -132,7 +132,7 @@ export default function PatientsList() {
             <div className="flex justify-between ml-20 mr-20">
                 <SearchBar onSearch={handleQuery}/>
                 <div className='flex'>
-                    <div className='flex bg-white rounded-lg pt-3 border-2 mr-24 border-gray-300 align-center justify-center text-center'>
+                    <div className='flex rounded-lg pt-3 mr-24 border-gray-300 align-center justify-center text-center'>
                         <p className='mx-5 font-bold text-green-400'>Done</p>
                         <p className='text-gray-300'>|</p>
                         <p className='mx-5 font-bold text-sky-400'>Not Done</p>
@@ -150,7 +150,7 @@ export default function PatientsList() {
                         <li key={patient.patient_id} className="flex justify-between gap-x-6 py-5 border-b-2">
                             <div className="min-w-0 gap-x-4">
                                 <div className="min-w-0 flex-auto p-3">
-                                    <p onClick={() => handlePatientClick(patient.patient_id)} className="text-sm font-semibold leading-6 text-gray-900">{patient.full_name}</p>
+                                    <p onClick={() => handlePatientClick(patient.patient_id)} className="text-lg font-semibold leading-6 text-gray-900">{patient.full_name}</p>
                                     <p className="leading-5 text-xs text-gray-600"><strong>Date of Birth:</strong> {patient.date_of_birth}</p>
                                     <p className="leading-5 text-xs text-gray-600">
                                         <strong>Medical Record:</strong> {medicalRecordStatus[patient.patient_id] ? 'Created' : 'No Record'}
@@ -162,17 +162,22 @@ export default function PatientsList() {
                             <div className="flex">
                                 <button
                                     onClick={() => handleVitals(patient.patient_id, patient.full_name)}
-                                    className={`mt-3 mr-5 px-3 py-1 border-b-2 rounded-md text-sm hover:text-white ${vitalsStatus[patient.patient_id] ? 'hover:bg-green-400' : 'hover:bg-sky-400'}`}
+                                    className={`mt-8 mr-5 px-3 py-1 h-10 border-b-2 rounded-md text-sm hover:text-white ${vitalsStatus[patient.patient_id] ? 'hover:bg-green-400' : 'hover:bg-sky-400'}`}
                                 >
                                     Vitals
                                 </button>
                                 <button 
                                     onClick={() => handleHistory(patient.patient_id, patient.full_name)} 
-                                    className={`mt-3 mr-5 px-3 py-1 border-b-2 rounded-md text-sm hover:text-white ${historyStatus[patient.patient_id] ? 'hover:bg-green-400' : 'hover:bg-sky-400'}`}
+                                    className={`mt-8 mr-5 px-3 py-1 h-10 border-b-2 rounded-md text-sm hover:text-white ${historyStatus[patient.patient_id] ? 'hover:bg-green-400' : 'hover:bg-sky-400'}`}
                                 >
                                     History        
                                     </button>
-                                <button onClick={() => handleCreateRecord(patient.patient_id, patient.full_name)} className="mt-3 mr-5 px-3 py-1 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white">Create Record</button>
+                                <button 
+                                    onClick={() => handleCreateRecord(patient.patient_id, patient.full_name)} 
+                                    className={`mt-8 mr-5 px-3 py-1 h-10 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white ${medicalRecordStatus[patient.patient_id] ? 'hover:bg-green-400' : 'hover:bg-sky-400'}`}
+                                >
+                                    Create Record
+                                </button>
                             </div>
                         </li>
                     ))}
@@ -181,17 +186,23 @@ export default function PatientsList() {
                     <button
                         onClick={() => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
-                        className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
+                        className="px-4 py-2 text-white bg-sky-400 rounded-md hover:bg-sky-600 flex items-center"
                     >
+                        <svg className="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                        </svg>
                         Previous
                     </button>
                     <span>Page {currentPage} of {totalPages}</span>
                     <button
                         onClick={() => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
+                        className="px-4 py-2 text-white bg-sky-400 rounded-md hover:bg-sky-600 flex items-center"
                     >
                         Next
+                        <svg className="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                        </svg>
                     </button>
                 </div>
             </div>
