@@ -59,7 +59,7 @@ export default function MedicalHistoryForms(){
                             <input type="text" placeholder="Ex. Penicillin" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"  value={allergies} onChange={(e) => setAllergies(e.target.value)} />
                         </div>
                         <div className="mt-5 flex">
-                            <label className="block mb-1 mr-2 font-bold">Medical_Conditions:</label>
+                            <label className="block mb-1 mr-2 font-bold">Medical Conditions:</label>
                             <input type="text" placeholder="Ex. Hypertension" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={medicalConditions} onChange={(e)=> setMedicalCondition(e.target.value)} />  
                         </div>
                         <button className="p-1 px-2 bg-sky-400 mt-5 rounded-md hover:bg-sky-500 border-2 border-sky-500 text-white" type="submit">Submit</button>
