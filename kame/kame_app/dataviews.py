@@ -6,6 +6,7 @@ from django.core import serializers
 from datetime import datetime
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
+from django.utils.timezone import now
 
 
 
@@ -117,8 +118,13 @@ def get_medical_record(request, patient_id):
                 try:
                     icd10_code = Icd10.objects.get(code=data['code'])
                     medicalrecord.code = icd10_code
+                    medicalrecord.icd10_added_date = now().date()
                 except Icd10.DoesNotExist:
                     return JsonResponse({'error': 'Invalid ICD-10 code'}, status=400)
+            else:
+                medicalrecord.code = None
+                medicalrecord.icd10_added_date = None
+
             medicalrecord.save()
             return JsonResponse(medicalrecord.to_dict(), status=200)
         except json.JSONDecodeError:
@@ -129,16 +135,19 @@ def create_medical_record(request, patient_id):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
+            icd10_code = data.get('code')
+
             medical_record = MedicalRecord.objects.create(
                 patient_id=Patient.objects.get(pk=patient_id),
                 history_id=MedicalHistory.objects.get(patient_id=patient_id),
                 vitals_id=VitalSigns.objects.get(patient_id=patient_id),
-                code=Icd10.objects.get(code=data.get('code')),
                 progress_notes=data.get('progress_notes'),
                 lab_data=data.get('lab_data'),
                 imaging_reports=data.get('imaging_reports'),
                 inmunizations=data.get('inmunizations'),
                 medications=data.get('medications'),
+                code=Icd10.objects.get(code=icd10_code) if icd10_code else None,
+                icd10_added_date=now().date() if icd10_code else None,  # Set date if code exists
             )
             return JsonResponse(medical_record.to_dict(), status=201)
         except Icd10.DoesNotExist:
@@ -151,7 +160,7 @@ def create_medical_record(request, patient_id):
 @csrf_exempt
 def get_vital_signs(request, patient_id):
     if request.method == 'GET':
-        try: 
+        try:
             data = VitalSigns.objects.get(patient_id=patient_id)
             return JsonResponse(data.to_dict())
         except VitalSigns.DoesNotExist:
@@ -210,7 +219,7 @@ def get_medical_history(request, patient_id):
             return JsonResponse(data.to_dict())
         except MedicalHistory.DoesNotExist:
             return JsonResponse({'error': 'Medical History does not exist'}, status=404)
-    
+
     elif request.method == 'PUT':
         try:
             data = json.loads(request.body)
