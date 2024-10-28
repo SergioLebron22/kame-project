@@ -51,35 +51,35 @@ export default function RegisterCard() {
             {errorMessage && <div className="mb-4 text-red-500">{errorMessage}</div>}
                 <div>
                     <label htmlFor="text" className="ml-10 font-semibold">Full Name: </label>
-                    <input type="text" placeholder="Ex. Nombre Apellidos" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-96 rounded-md" value={fullName} onChange={(e) => setFullName(e.target.value)}/>
+                    <input required type="text" placeholder="Ex. Nombre Apellidos" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-96 rounded-md" value={fullName} onChange={(e) => setFullName(e.target.value)}/>
 
                     <label htmlFor="text" className="ml-5 font-semibold">Gender: </label>
-                    <input type="text" placeholder="Ex. Male" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-20 rounded-md" value={gender} onChange={(e) => setGender(e.target.value)}/>
+                    <input required type="text" placeholder="Ex. Male" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-20 rounded-md" value={gender} onChange={(e) => setGender(e.target.value)}/>
                 </div>
                 <div>
                     <label htmlFor="date" className="ml-10 font-semibold">Date of Birth: </label>
-                    <input type="date" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-96 rounded-md" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
+                    <input required type="date" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-96 rounded-md" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
 
                     <label htmlFor="number" className="ml-5 font-semibold">Age: </label>
-                    <input type="number" placeholder="Ex. 99" min="0" max="110" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-20 rounded-md" value={age} onChange={(e) => setAge(e.target.value)}/>
+                    <input required type="number" placeholder="Ex. 99" min="0" max="110" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-20 rounded-md" value={age} onChange={(e) => setAge(e.target.value)}/>
                 </div>
                 <div>
                     <label htmlFor="text" className="ml-10 font-semibold">Address: </label>
-                    <input type="text" placeholder="Ex. 123 main street" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-96 rounded-md" value={address} onChange={(e) => setAddress(e.target.value)}/>
+                    <input required type="text" placeholder="Ex. 123 main street" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-96 rounded-md" value={address} onChange={(e) => setAddress(e.target.value)}/>
 
                     <label htmlFor="text" className="ml-5 font-semibold">City: </label>
-                    <input type="text" placeholder="Ex. San Juan" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-40 rounded-md" value={city} onChange={(e) => setCity(e.target.value)} />
+                    <input required type="text" placeholder="Ex. San Juan" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-40 rounded-md" value={city} onChange={(e) => setCity(e.target.value)} />
 
                     <label htmlFor="text" className="ml-5 font-semibold">Country:</label>
-                    <input type="text" placeholder="Ex. Puerto Rico" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-40 rounded-md" value={country} onChange={(e) => setCountry(e.target.value)} />
+                    <input required type="text" placeholder="Ex. Puerto Rico" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-40 rounded-md" value={country} onChange={(e) => setCountry(e.target.value)} />
                 </div>
                 <div>
                     <label htmlFor="tel" className="ml-10 font-semibold">Phone Number: </label>
-                    <input type="tel" placeholder="(123) 456-7890 " pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-96 rounded-md" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
+                    <input required type="tel" placeholder="(123) 456-7890 " pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-96 rounded-md" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
                 </div>
                 <div>
                     <label htmlFor="text" className="ml-10 font-semibold">SSN: </label>
-                    <input type="text" placeholder="123-45-7890 " pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-96 rounded-md" value={ssn} onChange={(e) => setSsn(e.target.value)}/>
+                    <input required type="text" placeholder="123-45-7890 " pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-96 rounded-md" value={ssn} onChange={(e) => setSsn(e.target.value)}/>
                 </div>
                 <div className="flex justify-end">
                     <button className="bg-sky-400 mt-10 font-semibold shadow-lg py-2 px-4 rounded-md border-2 border-sky-500 hover:bg-sky-500 text-gray-100">Save</button>
