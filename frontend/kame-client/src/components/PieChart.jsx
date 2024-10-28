@@ -37,7 +37,7 @@ const PiePatientAge = () => {
     });
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/dashboard/patients_dashboard/')
+        axios.get('http://127.0.0.1:8000/dashboard/patients/')
             .then(response => {
                 const data = response.data;
 
@@ -97,22 +97,28 @@ const PiePatientAge = () => {
     }, []);
 
     return (
-        <div className="flex justify-center align-center w-full h-full">
-            <Pie
-                data={pieData}
-                options={{
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
+        <div className="w-full h-full flex items-center justify-center">
+            <div className="w-[90%] h-[90%]"> {/* Expanded size */}
+                <Pie
+                    data={pieData}
+                    options={{
+                        responsive: true,
+                        maintainAspectRatio: false, // Allows filling the parent container
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    boxWidth: 20, // Adjust legend box size
+                                },
+                            },
+                            title: {
+                                display: true,
+                                text: 'Patient Age Distribution',
+                            },
                         },
-                        title: {
-                            display: true,
-                            text: 'Patient Age Distribution',
-                        },
-                    },
-                }}
-            />
+                    }}
+                />
+            </div>
         </div>
     );
 };

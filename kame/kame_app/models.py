@@ -150,12 +150,14 @@ class MedicalRecord(models.Model):
     medications = models.TextField()
     inmunizations = models.TextField()
 
+    icd10_added_date = models.DateField(null=True, blank=True)
+
 
     def to_dict(self):
         return {
             "record_id": self.record_id,
             "patient_id": self.patient_id.to_dict(),
-            "code": self.code.to_dict(),
+            "code": self.code.to_dict() if self.code else None,
             "history_id": self.history_id.to_dict(),
             "vitals_id": self.vitals_id.to_dict(),
             "progress_notes": self.progress_notes,
@@ -163,4 +165,5 @@ class MedicalRecord(models.Model):
             "imaging_reports": self.imaging_reports,
             "medications": self.medications,
             "inmunizations": self.inmunizations,
+            "icd10_added_date": self.icd10_added_date,
         }
