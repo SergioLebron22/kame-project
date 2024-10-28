@@ -1,5 +1,5 @@
 import NavBar from "../components/NavBar";
-import MedicalHistoryForms from "../components/MedicalHistortForms";
+import MedicalHistoryForms from "../components/MedicalHistoryForms";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner";
