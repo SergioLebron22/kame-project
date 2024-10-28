@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import LoadingSpinner from '../components/LoadingSpinner';
+import BackButton from '../components/BackButton';
 
 export default function EmployeeCreation() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -41,7 +42,10 @@ export default function EmployeeCreation() {
     return (
         <div className='bg-gradient-to-b from-gray-100 via-gray-100 to-sky-500 min-h-screen justify-between'>
             <NavBar />
-            <RegisterEmployees />
+            <BackButton />
+            <div className='h-full'>
+                <RegisterEmployees />
+            </div>
         </div>
     )
 }
