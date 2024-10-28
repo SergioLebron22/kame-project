@@ -54,7 +54,6 @@ export default function AdminPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                     {/* Bar Chart */}
                     <div className="col-span-2 bg-white p-12 rounded-lg shadow-lg">
-                        <h2 className="text-xl font-semibold">Diseases</h2>
                         <div className='h-auto'><BarDisease /></div>
                     </div>
 

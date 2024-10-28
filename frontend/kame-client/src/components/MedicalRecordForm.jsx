@@ -224,7 +224,7 @@ export default function MedicalRecordForm() {
                                 onChange={(e) => setInmunizations(e.target.value)}
                             />
                         </div>
-                        
+
                         <button className="p-1 px-2 bg-sky-400 mt-16 rounded-md hover:bg-sky-500 border-2 border-sky-500 text-white" type="submit">Submit</button>
                     </div>
                 </form>
