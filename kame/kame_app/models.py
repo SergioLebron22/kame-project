@@ -69,6 +69,7 @@ class Patient(models.Model):
     country = models.CharField(max_length=100)
     date_of_birth = models.DateField()
     ssn = models.CharField(max_length=100)
+    last_visited = models.DateField(null=True, blank=True, auto_now=True)
 
     def to_dict(self):
         return {
@@ -82,6 +83,7 @@ class Patient(models.Model):
             "country": self.country,
             "date_of_birth": self.date_of_birth,
             "ssn": self.ssn,
+            "last_visited": self.last_visited
         }
 
 class Icd10(models.Model):
@@ -117,7 +119,7 @@ class MedicalHistory(models.Model):
 class VitalSigns(models.Model):
     '''Model for patients vital signs'''
     vitals_id = models.UUIDField(primary_key=True, default= uuid.uuid4, editable=False)
-    patient_id = models.ForeignKey('Patient', on_delete=models.CASCADE, default=uuid.uuid4)
+    patient_id = models.ForeignKey('Patient', on_delete=models.CASCADE)
     pulse = models.IntegerField()
     temperature = models.FloatField()
     respiratory_rate = models.IntegerField()
@@ -148,17 +150,20 @@ class MedicalRecord(models.Model):
     medications = models.TextField()
     inmunizations = models.TextField()
 
+    icd10_added_date = models.DateField(null=True, blank=True)
+
 
     def to_dict(self):
         return {
             "record_id": self.record_id,
             "patient_id": self.patient_id.to_dict(),
-            "code": self.code.to_dict(),
+            "code": self.code.to_dict() if self.code else None,
             "history_id": self.history_id.to_dict(),
             "vitals_id": self.vitals_id.to_dict(),
-            "pogress_notes": self.progress_notes,
+            "progress_notes": self.progress_notes,
             "lab_data": self.lab_data,
             "imaging_reports": self.imaging_reports,
             "medications": self.medications,
             "inmunizations": self.inmunizations,
+            "icd10_added_date": self.icd10_added_date,
         }

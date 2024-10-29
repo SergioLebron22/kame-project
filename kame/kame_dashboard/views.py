@@ -1,9 +1,11 @@
 from django.http import JsonResponse
-from kame_app.models import Patient, CustomUser, MedicalRecord
+from kame_app.models import Patient, CustomUser, MedicalRecord, Icd10
 import json
-# from django.core import serializers
+from datetime import date
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
+from django.db.models.functions import TruncMonth
+from django.db.models import Count
 
 
 def dashboard(request):
@@ -60,10 +62,26 @@ def delete_user(request, employee_id):
 
 def get_patients_dashboard(request):
     if request.method == 'GET':
-        data = Patient.objects.all()
-        return JsonResponse([patient.to_dict() for patient in data], safe=False)
-    else:
-        return JsonResponse({'error': 'Invalid request method'}, status=405)
+        # Group by month and count the number of patients per month
+        data = (
+            Patient.objects
+            .annotate(month=TruncMonth('last_visited'))  # Assuming 'last_visited' is a DateTime field
+            .values('month')
+            .annotate(count=Count('patient_id'))  # Count the number of patients per month
+            .order_by('month')
+        )
+
+        # Format the data for JSON response
+        response_data = [
+            {
+                'month': item['month'].strftime('%B %Y') if item['month'] else 'No Date',
+                'count': item['count']
+            }
+            for item in data
+        ]
+        return JsonResponse(response_data, safe=False)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 # @csrf_exempt
 def create_employee(request):
@@ -84,5 +102,12 @@ def create_employee(request):
             return JsonResponse({'message': 'User created successfully', 'user_id': user.employee_id}, status=201)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+def get_patients_all(request):
+    if request.method == 'GET':
+        data = Patient.objects.all()
+        return JsonResponse([patient.to_dict() for patient in data], safe=False)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
