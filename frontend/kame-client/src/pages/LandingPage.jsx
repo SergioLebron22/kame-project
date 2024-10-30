@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react';
 import logo from "../images/logo.png"
-import demo from "../images/demo.jpg"
+import demo from "../images/demo.gif"
 import sergio from "../images/sergio.png"
 import chris from "../images/christian.png"
 import nissel from "../images/nissel.png"
@@ -12,16 +12,9 @@ import {
   Clock, 
   Users, 
   BarChart3, 
-  Mail, 
-  Phone, 
-  MapPin,
-  Facebook,
-  Twitter,
   Linkedin,
-  Instagram,
   Menu,
   X,
-  LogIn,
   Github
 } from 'lucide-react';
 
@@ -146,23 +139,25 @@ const LandingPage = () => {
       </section>
 
       <section id='features' className='bg-white py-20 scroll-mt-16'>
-          <div className='container mx-auto'>
+          <div className='container mx-auto px-6'>
             <div className='flex flex-col lg:flex-row items-center'>
                 <div className='lg:w-1/2 '>
-                    <h2 className='text-4xl font-bold mb-10'>Features</h2>
+                    <h2 className='text-4xl font-bold mb-16'>Features</h2>
                     <p className='py-5 text-lg'>
-                        Our app comes with the capabilities to manage patient information, such as their sociodemographic<br/> 
-                        information, thier vital signs, medical history and store it all in their medical record digitally.<br/>
+                        Our app comes with the capabilities to manage patient information, such as their sociodemographic 
+                        information, thier vital signs, medical history and store it all in their medical 
+                        record digitally.
                     </p>
                     <p className='pb-5 text-lg'>
-                        It comes with a easy to use, dynamic search engine that allows the user to easily find a patient.<br/>  
+                        It comes with a easy to use, dynamic search engine that allows the user to easily find a patient. 
                     </p>
                     <p className='text-lg mb-10'>
                         As well as a dashboard with a graphical interface for data analysis to facilitate hospital administrators
                         when making reports.
                     </p>
                 </div>
-                <div className='lg:w-1/2 lg:mb-0 '>
+                <div className='lg:w-1/2 lg:mb-0 ml-2'>
+                    <h2 className='font-semibold text-lg mb-5'>Dynamic Search Engine</h2>
                     <img src={demo} alt="demo" />
                 </div>
             </div>
@@ -183,7 +178,7 @@ const LandingPage = () => {
               {
                 icon: <Shield className="w-12 h-12 text-sky-600" />,
                 title: "Security",
-                description: "HIPAA-compliant security measures to protect sensitive information."
+                description: "State-of-the-art security protocols ensuring the highest level of data protection and compliance with industry standards."
               },
               {
                 icon: <Clock className="w-12 h-12 text-sky-600" />,
@@ -203,7 +198,7 @@ const LandingPage = () => {
               {
                 icon: <Database className="w-12 h-12 text-sky-600" />,
                 title: "Integration",
-                description: "Seamless integration with existing hospital systems."
+                description: "Seamless integration with existing hospital systems. (To be developed)"
               }
             ].map((service, index) => (
               <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
@@ -288,68 +283,10 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Contact Section */}
-      {/* <section id="contact" className="py-20 scroll-mt-16">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-16">Contact Us</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="space-y-8">
-              <div className="flex items-center space-x-4">
-                <Mail className="w-6 h-6 text-sky-600" />
-                <div>
-                  <h3 className="font-semibold">Email</h3>
-                  <p className="text-gray-600">contact@kame.com</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <Phone className="w-6 h-6 text-sky-600" />
-                <div>
-                  <h3 className="font-semibold">Phone</h3>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <MapPin className="w-6 h-6 text-sky-600" />
-                <div>
-                  <h3 className="font-semibold">Address</h3>
-                  <p className="text-gray-600">123 Healthcare Ave, Medical District</p>
-                </div>
-              </div>
-            </div>
-            <form className="space-y-6">
-              <div>
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-sky-600"
-                />
-              </div>
-              <div>
-                <input
-                  type="email"
-                  placeholder="Your Email"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-sky-600"
-                />
-              </div>
-              <div>
-                <textarea
-                  placeholder="Your Message"
-                  rows={4}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-sky-600"
-                ></textarea>
-              </div>
-              <button className="bg-sky-600 text-white px-8 py-3 rounded-lg hover:bg-sky-700 transition w-full">
-                Send Message
-              </button>
-            </form>
-          </div>
-        </div>
-      </section> */}
-
       {/* Footer */}
       <footer className="bg-sky-900 text-white py-12">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 align-center justify-center">
             <div>
               <h3 className="text-xl font-bold mb-4">Kame</h3>
               <p className="text-sky-200">
@@ -360,12 +297,12 @@ const LandingPage = () => {
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-sky-200">
                 <li><button onClick={() => scrollToSection('home')} className="hover:text-white">Home</button></li>
+                <li><button onClick={() => scrollToSection('features')} className="hover:text-white">Features</button></li>
                 <li><button onClick={() => scrollToSection('services')} className="hover:text-white">Services</button></li>
                 <li><button onClick={() => scrollToSection('about')} className="hover:text-white">About</button></li>
-                <li><button onClick={() => scrollToSection('contact')} className="hover:text-white">Contact</button></li>
               </ul>
             </div>
-            <div>
+            {/* <div>
               <h4 className="font-semibold mb-4">Services</h4>
               <ul className="space-y-2 text-sky-200">
                 <li><a href="#" className="hover:text-white">Data Storage</a></li>
@@ -373,15 +310,6 @@ const LandingPage = () => {
                 <li><a href="#" className="hover:text-white">Analytics</a></li>
                 <li><a href="#" className="hover:text-white">Integration</a></li>
               </ul>
-            </div>
-            {/* <div>
-              <h4 className="font-semibold mb-4">Follow Us</h4>
-              <div className="flex space-x-4">
-                <Facebook className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer" />
-                <Twitter className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer" />
-                <Linkedin className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer" />
-                <Instagram className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer" />
-              </div>
             </div> */}
           </div>
           <div className="border-t border-sky-800 mt-8 pt-8 text-center text-sky-200">

@@ -61,7 +61,7 @@ export default function RegisterCard() {
                     <input required type="date" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-96 rounded-md" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
 
                     <label htmlFor="number" className="ml-5 font-semibold">Age: </label>
-                    <input required type="number" placeholder="Ex. 99" min="0" max="110" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-20 rounded-md" value={age} onChange={(e) => setAge(e.target.value)}/>
+                    <input required type="number" placeholder="Ex. 99" min="0" max="120" className="border-2 border-gray-400 p-1 mx-2 mt-5 w-20 rounded-md" value={age} onChange={(e) => setAge(e.target.value)}/>
                 </div>
                 <div>
                     <label htmlFor="text" className="ml-10 font-semibold">Address: </label>

@@ -28,7 +28,7 @@ export default function MedicalRecordPage() {
         })
         .catch(error => {
             console.error('There was an error checking authentication!', error);
-            window.location.href = '/login/';
+            window.location.href = '/dashboard';
         });
     };
         checkAuth();
