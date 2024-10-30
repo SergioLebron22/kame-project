@@ -1,6 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react';
 import logo from "../images/logo.png"
+import demo from "../images/demo.jpg"
+import sergio from "../images/sergio.png"
+import chris from "../images/christian.png"
+import nissel from "../images/nissel.png"
 
 import { 
   Database, 
@@ -16,7 +20,9 @@ import {
   Linkedin,
   Instagram,
   Menu,
-  X
+  X,
+  LogIn,
+  Github
 } from 'lucide-react';
 
 const LandingPage = () => {
@@ -52,6 +58,12 @@ const LandingPage = () => {
                 Home
               </button>
               <button
+                onClick={() => scrollToSection('features')}
+                className="text-gray-600 hover:text-sky-600 transition"
+              >
+                Features
+              </button>
+              <button
                 onClick={() => scrollToSection('services')}
                 className="text-gray-600 hover:text-sky-600 transition"
               >
@@ -62,12 +74,6 @@ const LandingPage = () => {
                 className="text-gray-600 hover:text-sky-600 transition"
               >
                 About
-              </button>
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="text-gray-600 hover:text-sky-600 transition"
-              >
-                Contact
               </button>
               <button 
                 className="bg-sky-500 text-white px-6 py-2 rounded-lg hover:bg-sky-700 transition"
@@ -124,30 +130,47 @@ const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="bg-gradient-to-tr from-sky-500 to-sky-300 pt-28 pb-20">
+      <section id="home" className="bg-hero-pattern to-sky-200 pt-28 pb-20">
         <div className="container mx-auto px-6 my-28">
           <div className="flex flex-col lg:flex-row items-center">
             <div className="lg:w-1/2 mb-10 lg:mb-0">
-              {/* <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 text-center">
-                Kame
-              </h1> */}
               <img src={logo} alt="logo" className='h-56 lg:h-96 ml-3 lg:ml-48 flex align-center justify-center' />
-
-              {/* <p className="text-xl text-center text-gray-600 mt-8 mb-8">
-                Streamline your hospital's data workflow with our comprehensive management solution.
-                </p> */}
             </div>
             <div className='lg:w-1/2 mb-10 lg:mb-0'>
-                <h2 className='text-2xl lg:text-3xl font-semibold text-white text-center lg:text-left' >
-                    A Data Management and Data Analysis Web Application for Hospitals
+                <h2 className='text-2xl lg:text-4xl font-semibold text-white text-center lg:text-left' >
+                    Easy to Use Data Management and Data Analysis Web Application for Hospitals
                 </h2>
             </div>
           </div>
         </div>
       </section>
 
+      <section id='features' className='bg-white py-20 scroll-mt-16'>
+          <div className='container mx-auto'>
+            <div className='flex flex-col lg:flex-row items-center'>
+                <div className='lg:w-1/2 '>
+                    <h2 className='text-4xl font-bold mb-10'>Features</h2>
+                    <p className='py-5 text-lg'>
+                        Our app comes with the capabilities to manage patient information, such as their sociodemographic<br/> 
+                        information, thier vital signs, medical history and store it all in their medical record digitally.<br/>
+                    </p>
+                    <p className='pb-5 text-lg'>
+                        It comes with a easy to use, dynamic search engine that allows the user to easily find a patient.<br/>  
+                    </p>
+                    <p className='text-lg mb-10'>
+                        As well as a dashboard with a graphical interface for data analysis to facilitate hospital administrators
+                        when making reports.
+                    </p>
+                </div>
+                <div className='lg:w-1/2 lg:mb-0 '>
+                    <img src={demo} alt="demo" />
+                </div>
+            </div>
+          </div>
+      </section>
+
       {/* Services Section */}
-      <section id="services" className="py-20 scroll-mt-16">
+      <section id="services" className="bg-slate-100 py-20 scroll-mt-16">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-16">Our Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -194,34 +217,79 @@ const LandingPage = () => {
       </section>
 
       {/* About Us Section */}
-      <section id="about" className="bg-sky-50 py-20 scroll-mt-16">
+      <section id="about" className="bg-gradient-to-tr from-sky-600 via-sky-400 to-sky-200 py-20 scroll-mt-16">
         <div className="container mx-auto px-6">
+          <h2 className='text-center text-white text-3xl font-bold p-10'>About Us</h2>
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="lg:w-1/2">
               <img 
-                src="/api/placeholder/500/400" 
+                src={chris} 
                 alt="About Us" 
-                className="rounded-lg shadow-lg"
+                className="h-96"
               />
+              <h1 className='text-center text-2xl font-semibold text-white lg:mr-16 p-4'>
+                Christian Díaz Rivera
+              </h1>
+              <h2 className='text-center text-lg font-semibold text-white lg:mr-16'>
+                Fullstack Developer
+              </h2>
+              <div className="flex space-x-4 align-center justify-center mr-20 mt-2">
+                <a href="https://www.linkedin.com/in/christian-diaz-rivera-8697592a1/">
+                    <Linkedin className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer" />
+                </a>
+                <a href="https://github.com/SPCDIAZRIVERACHRISTIAN">
+                    <Github className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer"/>
+                </a>
+              </div>
             </div>
             <div className="lg:w-1/2">
-              <h2 className="text-3xl font-bold mb-6">About Us</h2>
-              <p className="text-gray-600 mb-6">
-                We are dedicated to revolutionizing healthcare data management through innovative solutions that empower hospitals to deliver better patient care.
-              </p>
-              <p className="text-gray-600 mb-6">
-                With over a decade of experience in healthcare technology, our team understands the unique challenges faced by modern healthcare providers.
-              </p>
-              <button className="bg-sky-600 text-white px-8 py-3 rounded-lg hover:bg-sky-700 transition">
-                Learn More About Us
-              </button>
+              <img 
+                src={nissel} 
+                alt="About Us" 
+                className="h-96"
+              />
+              <h1 className='text-center text-2xl font-semibold text-white mr-16 p-4'>
+                Nissel Sánchez Gutiérrez
+              </h1>
+              <h2 className='text-center text-lg font-semibold text-white mr-16'>
+                Fullstack Developer
+              </h2>
+              <div className="flex space-x-4 align-center justify-center mr-20 mt-2">
+                <a href="https://www.linkedin.com/in/nissel-sánchez-7ab349313/">
+                    <Linkedin className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer" />
+                </a>
+                <a href="https://github.com/niniisg">
+                    <Github className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer"/>
+                </a>
+              </div>
+            </div>
+            <div className="lg:w-1/2">
+              <img 
+                src={sergio} 
+                alt="About Us" 
+                className="h-96"
+              />
+              <h1 className='text-center text-2xl font-semibold text-white lg:mr-16 p-4'>
+                Sergio A. Lebrón Aguirre
+              </h1>
+              <h2 className='text-center text-lg font-semibold text-white lg:mr-16'>
+                Fullstack Developer
+              </h2>
+              <div className="flex space-x-4 align-center justify-center mr-20 mt-2">
+                <a href="https://www.linkedin.com/in/sergio-lebron/">
+                    <Linkedin className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer" />
+                </a>
+                <a href="https://github.com/SergioLebron22">
+                    <Github className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer"/>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 scroll-mt-16">
+      {/* <section id="contact" className="py-20 scroll-mt-16">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-16">Contact Us</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -276,12 +344,12 @@ const LandingPage = () => {
             </form>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <footer className="bg-sky-900 text-white py-12">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14">
             <div>
               <h3 className="text-xl font-bold mb-4">Kame</h3>
               <p className="text-sky-200">
@@ -306,7 +374,7 @@ const LandingPage = () => {
                 <li><a href="#" className="hover:text-white">Integration</a></li>
               </ul>
             </div>
-            <div>
+            {/* <div>
               <h4 className="font-semibold mb-4">Follow Us</h4>
               <div className="flex space-x-4">
                 <Facebook className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer" />
@@ -314,7 +382,7 @@ const LandingPage = () => {
                 <Linkedin className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer" />
                 <Instagram className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer" />
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="border-t border-sky-800 mt-8 pt-8 text-center text-sky-200">
             <p>&copy; 2024 Kame. All rights reserved.</p>

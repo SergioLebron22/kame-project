@@ -8,6 +8,9 @@ export default {
     extend: {
       height: {
         '128': '32rem',
+      },
+      backgroundImage: {
+        'hero-pattern': "url('/src/images/collage.png')",
       }
     },
   },

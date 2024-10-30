@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
+import {Plus} from "lucide-react"
 
 export default function PatientsList() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -138,10 +139,8 @@ export default function PatientsList() {
                         <p className='text-gray-300'>|</p>
                         <p className='mx-5 font-bold text-sky-400'>Not Done</p>
                     </div>
-                    <button onClick={handleAddButton} className="justify-end mr-1 p-3 rounded-full font-semibold text-white border-2 border-sky-500 bg-sky-400 hover:bg-sky-500 hover:text-white ">
-                        <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/>
-                        </svg>
+                    <button onClick={handleAddButton} className="justify-end mr-1 p-2 rounded-full  text-white border-2 border-sky-500 bg-sky-400 hover:bg-sky-500 hover:text-white ">
+                        <Plus />
                     </button>
                 </div>
             </div>

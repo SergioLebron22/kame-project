@@ -48,8 +48,10 @@ export default function LoginCard() {
         <>
             <div className="min-h-screen bg-gradient-to-b from-gray-100 via-gray-100 to-sky-500 flex items-center justify-center">
                 <div className="flex flex-col items-center justify-center h-full w-96 bg-white shadow-2xl rounded-md p-10 py-20">
-                    <img src={logo} alt="logo" className="mb-5 h-48" />
-                    <h1 className="text-3xl font-bold mb-4 text-sky-500">LOGIN</h1>
+                    <a href="http://localhost:5173">
+                        <img src={logo} alt="logo" className="mb-5 h-48" />
+                    </a>
+                    <h1 className="text-3xl font-bold mb-4 text-sky-500">LOG IN</h1>
                     <form onSubmit={handleLogin} className="w-auto max-w-sm p-6 pb-10 rounded-lg">
                     {errorMessage && <div className="mb-4 text-red-500">{errorMessage}</div>}
                         <div className="input flex flex-col w-fit static my-5">
@@ -84,7 +86,7 @@ export default function LoginCard() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         </div>
-                        <button className="text-white bg-sky-500 hover:bg-blue-500 px-2 py-1 w-full mt-10 rounded-md ">Login</button>
+                        <button className="text-white bg-sky-500 hover:bg-blue-500 px-2 py-1 w-full mt-10 rounded-md ">Log in</button>
                     </form>
                 </div>
             </div>
