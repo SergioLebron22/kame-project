@@ -10,6 +10,7 @@ export default function VitalSingForms(){
     const [temperature, setTemperature] = useState('');
     const [weight, setWeight] = useState('');
     const [height, setHeight] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const patient = localStorage.getItem('patient_name')
 
     const handleSubmit = async (e) => {
@@ -41,6 +42,7 @@ export default function VitalSingForms(){
                     window.location.href = '/home/';
                 } catch (error) {
                     console.error("There was an error creating vital signs", error);
+                    setErrorMessage('Invalid input! Must be numbers');
                 }
             } else {
                 console.error("Error fetching vitals", error);
@@ -65,7 +67,7 @@ export default function VitalSingForms(){
                         </div>
                         <div className="mt-5 flex">
                             <label className="block mb-1 mr-2"><strong>Temperature:</strong> </label>
-                            <input required type="number" placeholder="Ex.36.6°f" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={temperature} onChange={(e)=> setTemperature(e.target.value)} />  
+                            <input required type="text" placeholder="Ex.36.6°f" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={temperature} onChange={(e)=> setTemperature(e.target.value)} />  
                         </div>
                         <div className="mt-5 flex">
                             <label className="block mb-1 mr-2"><strong>Weight:</strong></label>
@@ -73,9 +75,10 @@ export default function VitalSingForms(){
                         </div>
                         <div className="mt-5 flex">
                             <label className="block mb-1 mr-2"><strong>Height:</strong></label>
-                            <input required type="number" placeholder="Ex. 6.1ft" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={height} onChange={(e) => setHeight(e.target.value)} />
+                            <input required type="text" placeholder="Ex. 6.1ft" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={height} onChange={(e) => setHeight(e.target.value)} />
                         </div>
                         <button className="p-1 px-2 bg-sky-400 mt-5 rounded-md hover:bg-sky-500 border-2 border-sky-500 text-white" type="submit">Submit</button>
+                        {errorMessage && <div className="mb-4 mt-4 text-red-500">{errorMessage}</div>}
                     </form>
                 </div>
             </div>

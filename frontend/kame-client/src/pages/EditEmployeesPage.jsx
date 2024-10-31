@@ -9,6 +9,7 @@ export default function EditEmployee() {
 
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionID');
+        const role = localStorage.getItem('role');
         const checkAuth = async () => {
             await axios.get('http://127.0.0.1:8000/auth/check-auth/', {
                 headers: {
@@ -18,8 +19,10 @@ export default function EditEmployee() {
             })
         .then(res => {
             console.log('Authentication response:', res.data);
-            if (res.data.isAuthenticated) {
+            if (res.data.isAuthenticated && role === 'admin') {
                 setIsAuthenticated(true);
+            } else if (res.data.isAuthenticated && role !== 'admin'){
+                window.location.href = '/home'
             } else {
                 setIsAuthenticated(false);
                 window.location.href = '/login/';
@@ -27,7 +30,7 @@ export default function EditEmployee() {
         })
         .catch(error => {
             console.error('There was an error checking authentication!', error);
-            window.location.href = '/login/';
+            window.location.href = '/home';
         });
     };
         checkAuth();

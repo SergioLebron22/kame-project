@@ -8,7 +8,7 @@ export default function SearchBar({ onSearch }) {
 
     return (
         <>
-            <div className="relative w-96 justify-end ">
+            <div className="relative w-96 justify-end ml-4 ">
                 <input 
                     type="search" 
                     className="block p-2.5 w-full z-20 text-sm text-gray-800 bg-white rounded-l-lg rounded-e-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-white dark:placeholder-gray-400 dark:text-black dark:focus:border-blue-500" 
