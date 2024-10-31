@@ -113,8 +113,13 @@ def get_medical_record(request, patient_id):
             medicalrecord.imaging_reports = data.get('imaging_reports', medicalrecord.imaging_reports)
             medicalrecord.medications = data.get('medications', medicalrecord.medications)
             medicalrecord.inmunizations = data.get('inmunizations', medicalrecord.inmunizations)
-            medicalrecord.code = None
-            if 'code' in data:
+            medicalrecord.code = Icd10.objects.get(code='0000')
+            try:
+                default_code = Icd10.objects.get(code='0000')
+            except Icd10.DoesNotExist:
+                return JsonResponse({'error': 'Default ICD-10 code 0000 does not exist'}, status=400)
+            
+            if 'code' in data and data['code']:
                 try:
                     icd10_code = Icd10.objects.get(code=data['code'])
                     medicalrecord.code = icd10_code
@@ -122,13 +127,17 @@ def get_medical_record(request, patient_id):
                 except Icd10.DoesNotExist:
                     return JsonResponse({'error': 'Invalid ICD-10 code'}, status=400)
             else:
-                medicalrecord.code = None
+                medicalrecord.code = default_code
                 medicalrecord.icd10_added_date = None
 
             medicalrecord.save()
             return JsonResponse(medicalrecord.to_dict(), status=200)
+        except MedicalRecord.DoesNotExist:
+            return JsonResponse({'error': 'Medical record not found'}, status=404)
         except json.JSONDecodeError:
-            return JsonResponse({'Error': "Invalid json"}, status=400)
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
 
 @csrf_exempt
 def create_medical_record(request, patient_id):
@@ -146,7 +155,7 @@ def create_medical_record(request, patient_id):
                 imaging_reports=data.get('imaging_reports'),
                 inmunizations=data.get('inmunizations'),
                 medications=data.get('medications'),
-                code=Icd10.objects.get(code=icd10_code) if icd10_code else None,
+                code=Icd10.objects.get(code=icd10_code) if icd10_code else Icd10.objects.get(code='0000'),
                 icd10_added_date=now().date() if icd10_code else None,  # Set date if code exists
             )
             return JsonResponse(medical_record.to_dict(), status=201)

@@ -220,15 +220,15 @@ const LandingPage = () => {
               <img 
                 src={chris} 
                 alt="About Us" 
-                className="h-96"
+                className=""
               />
-              <h1 className='text-center text-2xl font-semibold text-white lg:mr-16 p-4'>
+              <h1 className='text-center text-2xl font-semibold text-white lg:mx-auto p-4'>
                 Christian Díaz Rivera
               </h1>
-              <h2 className='text-center text-lg font-semibold text-white lg:mr-16'>
+              <h2 className='text-center text-lg font-semibold text-white lg:mx-auto'>
                 Fullstack Developer
               </h2>
-              <div className="flex space-x-4 align-center justify-center mr-20 mt-2">
+              <div className="flex space-x-4 align-center justify-center lg:mx-auto mt-2">
                 <a href="https://www.linkedin.com/in/christian-diaz-rivera-8697592a1/">
                     <Linkedin className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer" />
                 </a>
@@ -241,15 +241,15 @@ const LandingPage = () => {
               <img 
                 src={nissel} 
                 alt="About Us" 
-                className="h-96"
+                className=""
               />
-              <h1 className='text-center text-2xl font-semibold text-white mr-16 p-4'>
+              <h1 className='text-center text-2xl font-semibold text-white lg:mx-auto p-4'>
                 Nissel Sánchez Gutiérrez
               </h1>
-              <h2 className='text-center text-lg font-semibold text-white mr-16'>
+              <h2 className='text-center text-lg font-semibold text-white lg:mx-auto'>
                 Fullstack Developer
               </h2>
-              <div className="flex space-x-4 align-center justify-center mr-20 mt-2">
+              <div className="flex space-x-4 align-center justify-center lg:mx-auto mt-2">
                 <a href="https://www.linkedin.com/in/nissel-sánchez-7ab349313/">
                     <Linkedin className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer" />
                 </a>
@@ -262,15 +262,15 @@ const LandingPage = () => {
               <img 
                 src={sergio} 
                 alt="About Us" 
-                className="h-96"
+                className=""
               />
-              <h1 className='text-center text-2xl font-semibold text-white lg:mr-16 p-4'>
+              <h1 className='text-center text-2xl font-semibold text-white lg:mx-8 p-4'>
                 Sergio A. Lebrón Aguirre
               </h1>
-              <h2 className='text-center text-lg font-semibold text-white lg:mr-16'>
+              <h2 className='text-center text-lg font-semibold text-white lg:mx-16'>
                 Fullstack Developer
               </h2>
-              <div className="flex space-x-4 align-center justify-center mr-20 mt-2">
+              <div className="flex space-x-4 align-center justify-center mx-20 mt-2">
                 <a href="https://www.linkedin.com/in/sergio-lebron/">
                     <Linkedin className="w-6 h-6 text-sky-200 hover:text-white cursor-pointer" />
                 </a>
@@ -286,7 +286,7 @@ const LandingPage = () => {
       {/* Footer */}
       <footer className="bg-sky-900 text-white py-12">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 align-center justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-14 ml-80">
             <div>
               <h3 className="text-xl font-bold mb-4">Kame</h3>
               <p className="text-sky-200">

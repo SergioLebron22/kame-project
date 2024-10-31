@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import useDebounce from '../utils/useDebounce';
+import useDebounce from '../utils/useDebounce'; 
 
 export default function MedicalRecordForm() {
     const patientId = localStorage.getItem('patient_id');
@@ -31,7 +30,7 @@ export default function MedicalRecordForm() {
     };
 
     useEffect(() => {
-        if (debouncedSearchQuery) {
+        if (debouncedSearchQuery && debouncedSearchQuery !== selectedCode?.description) {
             setLoading(true);
             axios.get('http://127.0.0.1:8000/home/get_codes/', {
                 params: {
@@ -72,23 +71,28 @@ export default function MedicalRecordForm() {
 
     const handleQuery = (query) => {
         setSearchQuery(query);
+        setSelectedCode(null);
         setPage(1); // Reset to first page on new search
     };
 
     const handleSuggestionClick = (code) => {
-        if (code) {
-            setSelectedCode(code);
-            setSearchQuery(code.description);
-            setCode(code.code);
-        } else {
-            setSelectedCode(null);
-            setSearchQuery('');
-            setCode(null);
-        }
+        setSelectedCode(code);
+        setSearchQuery(code.description);
+        setCode(code.code);
+        setCodeList([]); // Clear the suggestions list immediately
     };
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
+
+        if (!code) {
+            const confirmSubmission = window.confirm("The code is not set. Are you sure you want to submit the form with the code set to 'N/A'?");
+            if (!confirmSubmission) {
+                return; // Exit the function if the user cancels
+            } else {
+                setCode('N/A'); // Set the code to 'N/A' if the user confirms
+            }
+        }
 
         try {
             const response = await axios.get(`http://127.0.0.1:8000/home/patients/${patientId}/medical_record/`);
@@ -157,6 +161,7 @@ export default function MedicalRecordForm() {
                         <label className="font-semibold text-2xl">Progress Notes</label>
                         <textarea
                             className="mt-2 w-full h-56 p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                            placeholder='Enter notes here...'
                             value={progressNotes}
                             onChange={(e) => setProgressNotes(e.target.value)}
                             required
@@ -179,7 +184,6 @@ export default function MedicalRecordForm() {
                                             className="px-4 py-2 cursor-pointer hover:bg-gray-100"
                                             onClick={() => {
                                                 handleSuggestionClick(code);
-                                                setCodeList([]);
                                             }}
                                         >
                                             {code.description}
