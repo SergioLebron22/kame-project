@@ -11,6 +11,12 @@ const EditEmployees = () => {
     const [name, setName] = useState('');
     const [employee, setEmployee] = useState(null);
 
+    const roleOptions = [
+        { value: 'admin', label: 'Supervisor' },
+        { value: 'doctor', label: 'Doctor' },
+        { value: 'nurse', label: 'Nurse' }
+    ];
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -52,17 +58,22 @@ const EditEmployees = () => {
                         />
                     </label>
                 </div>
-                <div>
-                    <label className='block text-sm font-medium text-gray-700'>
-                        Role:
-                        <input
-                            required
-                            type="text"
-                            value={role}
-                            onChange={(e) => setRole(e.target.value)}
-                            className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-                        />
-                    </label>
+                <div className="mb-4">
+                    <label htmlFor="role" className="block text-sm font-medium text-gray-700">Role</label>
+                    <select
+                        id="role"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        required
+                    >
+                        <option value="">Select a Role</option>
+                        {roleOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div>
                     <label className='block text-sm font-medium text-gray-700'>
