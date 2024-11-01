@@ -96,6 +96,12 @@ const LandingPage = () => {
                   Home
                 </button>
                 <button
+                  onClick={() => scrollToSection('features')}
+                  className="text-gray-600 hover:text-sky-600 transition"
+                >
+                  Features
+                </button>
+                <button
                   onClick={() => scrollToSection('services')}
                   className="text-gray-600 hover:text-sky-600 transition"
                 >
@@ -106,12 +112,6 @@ const LandingPage = () => {
                   className="text-gray-600 hover:text-sky-600 transition"
                 >
                   About
-                </button>
-                <button
-                  onClick={() => scrollToSection('contact')}
-                  className="text-gray-600 hover:text-sky-600 transition"
-                >
-                  Contact
                 </button>
                 <button className="bg-sky-400 text-white px-6 py-2 rounded-lg hover:bg-sky-600 transition w-full">
                   Log In
@@ -127,7 +127,7 @@ const LandingPage = () => {
         <div className="container mx-auto px-6 my-28">
           <div className="flex flex-col lg:flex-row items-center">
             <div className="lg:w-1/2 mb-10 lg:mb-0">
-              <img src={logo} alt="logo" className='h-56 lg:h-96 ml-3 lg:ml-48 flex align-center justify-center' />
+              <img src={logo} alt="logo" className='h-56 lg:h-96 lg:ml-28 flex align-center justify-center' />
             </div>
             <div className='lg:w-1/2 mb-10 lg:mb-0'>
                 <h2 className='text-2xl lg:text-4xl font-semibold text-white text-center lg:text-left' >
@@ -212,9 +212,23 @@ const LandingPage = () => {
       </section>
 
       {/* About Us Section */}
-      <section id="about" className="bg-gradient-to-tr from-sky-600 via-sky-400 to-sky-200 py-20 scroll-mt-16">
+      <section id="about" className="bg-gradient-to-tr from-sky-600 via-sky-400 to-sky-200 pt-2 pb-10 scroll-mt-16">
         <div className="container mx-auto px-6">
           <h2 className='text-center text-white text-3xl font-bold p-10'>About Us</h2>
+          <p className='text-center text-white text-lg font-medium px-4 md:px-28'>
+            What inspired us to make Kame was that one of Christian's family members, who is the Director of Finances of a hospital 
+            in Patillas, Puerto Rico, told us about how the hospital's reports were not showing accurate data resulting in less funds
+            given by the federal government. This led us to investigate and see the software they use to manage their data, and decided to improve 
+            upon it by making an easy to use, more modern looking web application. 
+          </p>
+          <div className="text-center mt-8">
+            <button 
+              onClick={() => window.location.href = 'https://github.com/SergioLebron22/kame-project'} 
+              className="bg-white text-sky-600 font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-sky-100 transition"
+            >
+              Learn More
+            </button>
+          </div>
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="lg:w-1/2">
               <img 
@@ -286,7 +300,7 @@ const LandingPage = () => {
       {/* Footer */}
       <footer className="bg-sky-900 text-white py-12">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-14 ml-80">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-14 ml-0 md:ml-80">
             <div>
               <h3 className="text-xl font-bold mb-4">Kame</h3>
               <p className="text-sky-200">
@@ -302,15 +316,6 @@ const LandingPage = () => {
                 <li><button onClick={() => scrollToSection('about')} className="hover:text-white">About</button></li>
               </ul>
             </div>
-            {/* <div>
-              <h4 className="font-semibold mb-4">Services</h4>
-              <ul className="space-y-2 text-sky-200">
-                <li><a href="#" className="hover:text-white">Data Storage</a></li>
-                <li><a href="#" className="hover:text-white">Security</a></li>
-                <li><a href="#" className="hover:text-white">Analytics</a></li>
-                <li><a href="#" className="hover:text-white">Integration</a></li>
-              </ul>
-            </div> */}
           </div>
           <div className="border-t border-sky-800 mt-8 pt-8 text-center text-sky-200">
             <p>&copy; 2024 Kame. All rights reserved.</p>
