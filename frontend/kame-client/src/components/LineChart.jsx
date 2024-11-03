@@ -1,6 +1,6 @@
 import { Line } from 'react-chartjs-2';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import {
     Chart as ChartJS,
     registerables
@@ -23,7 +23,7 @@ const LinePatients = () => {
     });
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/dashboard/patients_dashboard/')
+        api.get('dashboard/patients_dashboard/')
             .then(response => {
                 const data = response.data;
 

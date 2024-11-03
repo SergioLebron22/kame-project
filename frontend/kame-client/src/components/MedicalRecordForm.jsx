@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import useDebounce from '../utils/useDebounce'; 
+import useDebounce from '../utils/useDebounce';
+import api from '../api';
 
 export default function MedicalRecordForm() {
     const patientId = localStorage.getItem('patient_id');
@@ -32,7 +32,7 @@ export default function MedicalRecordForm() {
     useEffect(() => {
         if (debouncedSearchQuery && debouncedSearchQuery !== selectedCode?.description) {
             setLoading(true);
-            axios.get('http://127.0.0.1:8000/home/get_codes/', {
+            api.get('home/get_codes/', {
                 params: {
                     query: debouncedSearchQuery,
                     page: page,
@@ -95,11 +95,11 @@ export default function MedicalRecordForm() {
         }
 
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/home/patients/${patientId}/medical_record/`);
+            const response = await api.get(`home/patients/${patientId}/medical_record/`);
 
             if (response.data) {
                 try {
-                    await axios.put(`http://127.0.0.1:8000/home/patients/${patientId}/medical_record/`, newMedicalRecord, {
+                    await api.put(`home/patients/${patientId}/medical_record/`, newMedicalRecord, {
                         headers: {
                             'Content-Type': 'application/json',
                         }
@@ -113,7 +113,7 @@ export default function MedicalRecordForm() {
         } catch (error) {
             if (error.response && error.response.status === 404) {
                 try {
-                    const createResponse = await axios.post(`http://127.0.0.1:8000/home/patients/${patientId}/create_medical_record/`, newMedicalRecord, {
+                    const createResponse = await api.post(`home/patients/${patientId}/create_medical_record/`, newMedicalRecord, {
                         headers: {
                             'Content-Type': 'application/json',
                         }

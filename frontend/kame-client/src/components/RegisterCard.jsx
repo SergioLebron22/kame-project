@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 
 
 export default function RegisterCard() {
@@ -16,7 +16,7 @@ export default function RegisterCard() {
     const [country, setCountry] = useState("");
     const [dateOfBirth, setDateOfBirth] = useState("");
     const [ssn, setSsn] = useState("")
-    
+
     const newPatient = {
         full_name: fullName,
         age: age,
@@ -32,7 +32,7 @@ export default function RegisterCard() {
     const handleOnSubmit = async(e) => {
         e.preventDefault();
 
-        await axios.post('http://127.0.0.1:8000/home/patients/create_patient/', newPatient)
+        await api.post('home/patients/create_patient/', newPatient)
             .then(res => {
                 console.log(res.data);
                 console.log("Patient created successfully!")

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api"
 import { useNavigate } from "react-router-dom";
 import EmployeeSearchBar from "./EmployeeSearchBar";
 import NavBar from "./NavBar";
@@ -16,7 +16,7 @@ export default function EmployeesList() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/dashboard/users/')
+        api.get('dashboard/users/')
             .then(response => {
                 console.log(response.data);
                 setEmployeeList(response.data);
@@ -49,7 +49,7 @@ export default function EmployeesList() {
         setShowPopup(false);
         setShowSuccess(true);
 
-        axios.delete(`http://127.0.0.1:8000/dashboard/users/${selectedEmployeeId}/delete/`)
+        api.delete(`dashboard/users/${selectedEmployeeId}/delete/`)
             .then(response => {
                 console.log('Employee deleted successfully:', response.data);
                 setShowSuccess(true);
@@ -90,7 +90,7 @@ export default function EmployeesList() {
                                     <p className="text-sm font-semibold leading-6 text-gray-900">{employee.name}</p>
                                     <p className="leading-5 text-xs text-gray-600">Role: {employee.role}</p>
                                 </div>
-                            </div> 
+                            </div>
                             <div>
                                 <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white" onClick={() => handleEditClick(employee.employee_id)}>Edit</button>
                                 <button className="mt-3 mr-5 px-3 py-2 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white" onClick={() => handleDeleteClick(employee.employee_id)}>

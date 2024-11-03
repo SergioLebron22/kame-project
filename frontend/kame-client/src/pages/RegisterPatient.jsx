@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner";
 import RegisterCard from "../components/RegisterCard";
+import api from "../api";
 
 export default function RegisterPatien() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -10,12 +10,12 @@ export default function RegisterPatien() {
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionID');
         const checkAuth = async () => {
-            await axios.get('http://127.0.0.1:8000/auth/check-auth/', {
+            await api.get('auth/check-auth/', {
                 headers: {
                     'Authorization': sessionId,
                 },
                 timeout: 5000,
-            }) 
+            })
         .then(res => {
             console.log('Authentication response:', res.data);
             if (res.data.isAuthenticated) {

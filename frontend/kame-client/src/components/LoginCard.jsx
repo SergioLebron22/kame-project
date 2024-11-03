@@ -1,16 +1,18 @@
 import logo from "../images/logo.png"
 import { useState } from "react";
-import axios from 'axios';
+import api from "../api";
+import { useNavigate } from "react-router-dom";
 // import { getCookie } from "../csrf";
 
 export default function LoginCard() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = (e) => {
         e.preventDefault();
-        axios.post('http://127.0.0.1:8000/auth/login/',
+        api.post('auth/login/',
             {username: email, password},
             {
                 withCredentials: true,
@@ -44,13 +46,20 @@ export default function LoginCard() {
             });
     }
 
+    const handleLogoClick = () => {
+        navigate('/');
+    };
+
     return (
         <>
             <div className="min-h-screen bg-gradient-to-b from-gray-100 via-gray-100 to-sky-500 flex items-center justify-center">
                 <div className="flex flex-col items-center justify-center h-full w-96 bg-white shadow-2xl rounded-md p-10 py-20">
-                    <a href="http://localhost:5173">
-                        <img src={logo} alt="logo" className="mb-5 h-48" />
-                    </a>
+                <img
+                        src={logo}
+                        alt="logo"
+                        className="mb-5 h-48 cursor-pointer"
+                        onClick={handleLogoClick}
+                    />
                     <h1 className="text-3xl font-bold mb-4 text-sky-500">LOG IN</h1>
                     <form onSubmit={handleLogin} className="w-auto max-w-sm p-6 pb-10 rounded-lg">
                     {errorMessage && <div className="mb-4 text-red-500">{errorMessage}</div>}

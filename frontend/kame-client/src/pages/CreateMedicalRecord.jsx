@@ -1,8 +1,8 @@
 import NavBar from "../components/NavBar";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import MedicalRecordForm from "../components/MedicalRecordForm";
 import LoadingSpinner from "../components/LoadingSpinner";
+import api from "../api";
 
 export default function CreateMedicalRecord() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -11,12 +11,12 @@ export default function CreateMedicalRecord() {
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionID');
         const checkAuth = async () => {
-            await axios.get('http://127.0.0.1:8000/auth/check-auth/', {
+            await api.get('auth/check-auth/', {
                 headers: {
                     'Authorization': sessionId,
                 },
                 timeout: 5000,
-            }) 
+            })
         .then(res => {
             console.log('Authentication response:', res.data);
             if (res.data.isAuthenticated) {

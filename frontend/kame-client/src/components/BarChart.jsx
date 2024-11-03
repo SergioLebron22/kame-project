@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, registerables } from 'chart.js';
+import api from '../api';
 
 ChartJS.register(...registerables);
 
@@ -26,7 +27,7 @@ const BarDisease = () => {
 
     // Fetch ICD-10 codes from the backend
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/home/get_codes/', {
+        api.get('home/get_codes/', {
             params: { query: searchTerm, page: currentPage, page_size: 10 },
         })
         .then(response => {
@@ -38,7 +39,7 @@ const BarDisease = () => {
 
     // Fetch dashboard data and group by icd10_added_date per month
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/dashboard/')
+        api.get('dashboard/')
           .then(response => {
             console.log('Dashboard Data:', response.data);
 
