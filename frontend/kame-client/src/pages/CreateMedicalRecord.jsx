@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import MedicalRecordForm from "../components/MedicalRecordForm";
 import LoadingSpinner from "../components/LoadingSpinner";
 import api from "../api";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateMedicalRecord() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionID');
@@ -28,11 +29,11 @@ export default function CreateMedicalRecord() {
         })
         .catch(error => {
             console.error('There was an error checking authentication!', error);
-            window.location.href = '/dashboard';
+            navigate(-1);
         });
     };
         checkAuth();
-    }, []);
+    }, [navigate]);
 
     if (!isAuthenticated) {
         console.log('User not auth')

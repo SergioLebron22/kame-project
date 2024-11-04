@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useDebounce from '../utils/useDebounce';
 import api from '../api';
 

@@ -29,7 +29,7 @@ export default function VitalSingForms(){
             const response = await api.get(`home/patients/${patientId}/vital_signs/`);
 
             if (response.data) {
-                await axios.put(`http://127.0.0.1:8000/home/patients/${patientId}/vital_signs/`, newVitalSign);
+                await api.put(`http://127.0.0.1:8000/home/patients/${patientId}/vital_signs/`, newVitalSign);
                 console.log("Vital sign updated successfully");
                 window.location.href = '/home/'
             }

@@ -5,9 +5,11 @@ import NavBar from "../components/NavBar";
 import { useState, useEffect } from 'react';
 import LoadingSpinner from '../components/LoadingSpinner';
 import api from '../api'
+import { useNavigate } from 'react-router-dom';
 
 export default function AdminPage() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const navigate = useNavigate();
     const name = localStorage.getItem('name')
 
     useEffect(() => {
@@ -33,11 +35,11 @@ export default function AdminPage() {
         })
         .catch(error => {
             console.error('There was an error checking authentication!', error);
-            window.location.href = '/home';
+            navigate(-1);
         });
     };
         checkAuth();
-    }, []);
+    }, [navigate]);
 
     if (!isAuthenticated) {
         console.log('User not auth')

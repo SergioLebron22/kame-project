@@ -2,9 +2,11 @@ import EmployeesList from "../components/EmployeesOnShift";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import api from "../api";
+import { useNavigate } from "react-router-dom";
 
 export default function EmployeeListPage () {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionID');
@@ -29,11 +31,11 @@ export default function EmployeeListPage () {
         })
         .catch(error => {
             console.error('There was an error checking authentication!', error);
-            window.location.href = '/home';
+            navigate(-1);
         });
     };
         checkAuth();
-    }, []);
+    }, [navigate]);
 
     if (!isAuthenticated) {
         console.log('User not auth')

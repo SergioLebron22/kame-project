@@ -3,9 +3,12 @@ import EditEmployees from '../components/EmployeeEdit';
 import { useEffect, useState } from 'react';
 import LoadingSpinner from '../components/LoadingSpinner';
 import api from '../api';
+import { useNavigate } from 'react-router-dom';
+import BackButton from '../components/BackButton';
 
 export default function EditEmployee() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionID');
@@ -30,11 +33,11 @@ export default function EditEmployee() {
         })
         .catch(error => {
             console.error('There was an error checking authentication!', error);
-            window.location.href = '/home';
+            navigate(-1);
         });
     };
         checkAuth();
-    }, []);
+    }, [navigate]);
 
     if (!isAuthenticated) {
         console.log('User not auth')
@@ -44,6 +47,7 @@ export default function EditEmployee() {
     return (
         <div className='bg-gradient-to-b from-gray-100 via-gray-100 to-sky-500 min-h-screen justify-between'>
                 <NavBar />
+                <BackButton />
                 <EditEmployees />
          </div>
     );
