@@ -3,9 +3,11 @@ import NavBar from "../components/NavBar";
 import LoadingSpinner from "../components/LoadingSpinner";
 import RegisterCard from "../components/RegisterCard";
 import api from "../api";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterPatien() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionID');
@@ -27,11 +29,11 @@ export default function RegisterPatien() {
         })
         .catch(error => {
             console.error('There was an error checking authentication!', error);
-            window.location.href = '/dashboard';
+            navigate(-1);
         });
     };
         checkAuth();
-    }, []);
+    }, [navigate]);
 
     if (!isAuthenticated) {
         console.log('User not auth')

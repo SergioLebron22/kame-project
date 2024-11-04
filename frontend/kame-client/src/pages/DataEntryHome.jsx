@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import PatientsList from "../components/PatientsList";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -7,6 +8,7 @@ import api from "../api";
 
 export default function DataEntryHome() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const navigate = useNavigate();
     const role = localStorage.getItem('role')
 
     useEffect(() => {
@@ -32,11 +34,11 @@ export default function DataEntryHome() {
         })
         .catch(error => {
             console.error('There was an error checking authentication!', error);
-            window.location.href = '/dashboard';
+            navigate(-1);
         });
     };
         checkAuth();
-    }, [role]);
+    }, [role, navigate]);
 
     if (!isAuthenticated) {
         console.log('User not auth')
