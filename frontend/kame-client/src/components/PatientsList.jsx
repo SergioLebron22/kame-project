@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import {Plus} from "lucide-react"
+import api from '../api';
 
 export default function PatientsList() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -21,7 +21,7 @@ export default function PatientsList() {
     }, [searchQuery, currentPage]);
 
     const fetchPatients = () => {
-        axios.get('http://127.0.0.1:8000/home/patients/', {
+        api.get('home/patients/', {
             params: {
                 query: searchQuery,
                 page: currentPage,
@@ -44,7 +44,7 @@ export default function PatientsList() {
     const fetchMedicalRecords = (patients) => {
         const status = {};
         patients.forEach(patient => {
-            axios.get(`http://127.0.0.1:8000/home/patients/${patient.patient_id}/medical_record/`)
+            api.get(`home/patients/${patient.patient_id}/medical_record/`)
                 .then(response => {
                     status[patient.patient_id] = true;
                 })
@@ -60,7 +60,7 @@ export default function PatientsList() {
     const fetchVitalsStatus = (patients) => {
         const status = {};
         patients.forEach(patient => {
-            axios.get(`http://127.0.0.1:8000/home/patients/${patient.patient_id}/vital_signs/`)
+            api.get(`home/patients/${patient.patient_id}/vital_signs/`)
                 .then(response => {
                     status[patient.patient_id] = true;
                 })
@@ -76,7 +76,7 @@ export default function PatientsList() {
     const fetchHistoryStatus = (patients) => {
         const status = {};
         patients.forEach(patient => {
-            axios.get(`http://127.0.0.1:8000/home/patients/${patient.patient_id}/medical_history/`)
+            api.get(`home/patients/${patient.patient_id}/medical_history/`)
                 .then(response => {
                     status[patient.patient_id] = true;
                 })
@@ -105,7 +105,7 @@ export default function PatientsList() {
 
     const handleVitals = (patient_id, name) => {
         localStorage.setItem('patient_id', patient_id)
-        localStorage.setItem('patient_name', name) 
+        localStorage.setItem('patient_name', name)
         navigate(`/home/${patient_id}/create-vitals/`)
     }
 
@@ -128,7 +128,7 @@ export default function PatientsList() {
     const filteredPatients = patientsList.filter(patient =>
         patient.full_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    
+
     return (
         <>
             <div className="flex justify-between ml-20 mr-20">
@@ -157,7 +157,7 @@ export default function PatientsList() {
                                     </p>
                                 </div>
                             </div>
-                            <div>  
+                            <div>
                             </div>
                             <div className="flex">
                                 <button
@@ -166,14 +166,14 @@ export default function PatientsList() {
                                 >
                                     Vitals
                                 </button>
-                                <button 
-                                    onClick={() => handleHistory(patient.patient_id, patient.full_name)} 
+                                <button
+                                    onClick={() => handleHistory(patient.patient_id, patient.full_name)}
                                     className={`mt-8 mr-5 px-3 py-1 h-10 border-b-2 rounded-md text-sm hover:text-white ${historyStatus[patient.patient_id] ? 'hover:bg-green-400' : 'hover:bg-sky-400'}`}
                                 >
-                                    History        
+                                    History
                                     </button>
-                                <button 
-                                    onClick={() => handleCreateRecord(patient.patient_id, patient.full_name)} 
+                                <button
+                                    onClick={() => handleCreateRecord(patient.patient_id, patient.full_name)}
                                     className={`mt-8 mr-5 px-3 py-1 h-10 border-b-2 rounded-md text-sm hover:bg-sky-400  hover:text-white ${medicalRecordStatus[patient.patient_id] ? 'hover:bg-green-400' : 'hover:bg-sky-400'}`}
                                 >
                                     Create Record

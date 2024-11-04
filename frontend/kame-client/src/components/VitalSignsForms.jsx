@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
-import axios from "axios";
+import api from "../api";
 // import { useParams } from "react-router-dom";
 
 export default function VitalSingForms(){
@@ -26,7 +26,7 @@ export default function VitalSingForms(){
         }
 
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/home/patients/${patientId}/vital_signs/`);
+            const response = await api.get(`home/patients/${patientId}/vital_signs/`);
 
             if (response.data) {
                 await axios.put(`http://127.0.0.1:8000/home/patients/${patientId}/vital_signs/`, newVitalSign);
@@ -36,7 +36,7 @@ export default function VitalSingForms(){
         } catch (error) {
             if (error.response && error.response.status === 404) {
                 try {
-                    const response = await axios.post(`http://127.0.0.1:8000/home/patients/${patientId}/create_vital_signs/`, newVitalSign);
+                    const response = await api.post(`home/patients/${patientId}/create_vital_signs/`, newVitalSign);
                     console.log(response.data);
                     console.log("Vital signs created successfully");
                     window.location.href = '/home/';
@@ -62,12 +62,12 @@ export default function VitalSingForms(){
                             <input required type="number" placeholder="Ex. 72 bmp" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={pulse} onChange={(e) => setPulse(e.target.value)} />
                         </div>
                         <div className="mt-5 flex">
-                            <label className="text-nowrap block mb-1 mr-2"><strong>Respiratory Rate:</strong></label> 
+                            <label className="text-nowrap block mb-1 mr-2"><strong>Respiratory Rate:</strong></label>
                             <input required type="number" placeholder="Ex. 16 breaths/min" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"  value={respiratoryRate} onChange={(e) => setRespiratoryRate(e.target.value)} />
                         </div>
                         <div className="mt-5 flex">
                             <label className="block mb-1 mr-2"><strong>Temperature:</strong> </label>
-                            <input required type="text" placeholder="Ex.36.6°f" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={temperature} onChange={(e)=> setTemperature(e.target.value)} />  
+                            <input required type="text" placeholder="Ex.36.6°f" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={temperature} onChange={(e)=> setTemperature(e.target.value)} />
                         </div>
                         <div className="mt-5 flex">
                             <label className="block mb-1 mr-2"><strong>Weight:</strong></label>

@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from "../api";
 import { useParams, useNavigate } from 'react-router-dom';
 import LoadingSpinner from './LoadingSpinner';
 
 export default function MedicalRecordInfo() {
     const { patientId } = useParams();
     const navigate = useNavigate();
-    const [medicalRecord, setMedicalRecord] = useState(null); 
+    const [medicalRecord, setMedicalRecord] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
-        axios.get(`http://127.0.0.1:8000/home/patients/${patientId}/medical_record/`)
+        api.get(`home/patients/${patientId}/medical_record/`)
             .then(response => {
                 if (response.data) {
                     console.log(response.data);
@@ -27,7 +27,7 @@ export default function MedicalRecordInfo() {
     }, [patientId, navigate]);
 
     if (!medicalRecord) {
-        return <LoadingSpinner />; 
+        return <LoadingSpinner />;
     }
 
     return (

@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
-import axios from "axios";
+import api from "../api";
 
 export default function MedicalHistoryForms(){
     const patientId = localStorage.getItem('patient_id');
@@ -11,7 +11,7 @@ export default function MedicalHistoryForms(){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         const NewMedicalHistory = {
             patient_id: patientId,
             surgeries: surgeries,
@@ -20,17 +20,17 @@ export default function MedicalHistoryForms(){
         }
 
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/home/patients/${patientId}/medical_history/`);
+            const response = await api.get(`home/patients/${patientId}/medical_history/`);
 
             if (response.data) {
-                await axios.put(`http://127.0.0.1:8000/home/patients/${patientId}/medical_history/`, NewMedicalHistory);
+                await api.put(`home/patients/${patientId}/medical_history/`, NewMedicalHistory);
                 console.log("Medical History updated successfully");
                 window.location.href = '/home/'
             }
         } catch (error) {
             if (error.response && error.response.status === 404) {
                 try {
-                    const response = await axios.post(`http://127.0.0.1:8000/home/patients/${patientId}/create_medical_history/`, NewMedicalHistory);
+                    const response = await api.post(`home/patients/${patientId}/create_medical_history/`, NewMedicalHistory);
                     console.log(response.data);
                     console.log("Medical History created successfully");
                     window.location.href = '/home/';
@@ -43,7 +43,7 @@ export default function MedicalHistoryForms(){
         }
     };
 
-    
+
     return (
         <>
             <div className="bg-white p-10 rounded-xl  shadow-2xl m-32">
@@ -55,12 +55,12 @@ export default function MedicalHistoryForms(){
                             <input required type="text" placeholder="Ex. Appendectomy" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={surgeries} onChange={(e) => setSurgeries(e.target.value)} />
                         </div>
                         <div className="mt-5 flex">
-                            <label className="text-nowrap block mb-1 mr-2 font-bold">Allergies:</label> 
+                            <label className="text-nowrap block mb-1 mr-2 font-bold">Allergies:</label>
                             <input required type="text" placeholder="Ex. Penicillin" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"  value={allergies} onChange={(e) => setAllergies(e.target.value)} />
                         </div>
                         <div className="mt-5 flex">
                             <label className="block mb-1 mr-2 font-bold">Medical Conditions:</label>
-                            <input required type="text" placeholder="Ex. Hypertension" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={medicalConditions} onChange={(e)=> setMedicalCondition(e.target.value)} />  
+                            <input required type="text" placeholder="Ex. Hypertension" className="border-2 rounded p-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value={medicalConditions} onChange={(e)=> setMedicalCondition(e.target.value)} />
                         </div>
                         <button className="p-1 px-2 bg-sky-400 mt-5 rounded-md hover:bg-sky-500 border-2 border-sky-500 text-white" type="submit">Submit</button>
                     </form>

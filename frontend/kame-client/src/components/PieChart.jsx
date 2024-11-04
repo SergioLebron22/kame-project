@@ -1,6 +1,6 @@
 import { Pie } from 'react-chartjs-2';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import {
     Chart as ChartJS,
     registerables
@@ -37,7 +37,7 @@ const PiePatientAge = () => {
     });
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/dashboard/patients/')
+        api.get('dashboard/patients/')
             .then(response => {
                 const data = response.data;
 

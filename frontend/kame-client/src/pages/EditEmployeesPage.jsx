@@ -1,8 +1,8 @@
 import NavBar from '../components/NavBar';
 import EditEmployees from '../components/EmployeeEdit';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import LoadingSpinner from '../components/LoadingSpinner';
+import api from '../api';
 
 export default function EditEmployee() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -11,7 +11,7 @@ export default function EditEmployee() {
         const sessionId = localStorage.getItem('sessionID');
         const role = localStorage.getItem('role');
         const checkAuth = async () => {
-            await axios.get('http://127.0.0.1:8000/auth/check-auth/', {
+            await api.get('auth/check-auth/', {
                 headers: {
                     'Authorization': sessionId,
                 },

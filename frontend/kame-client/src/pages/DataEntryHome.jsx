@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import PatientsList from "../components/PatientsList";
-import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner";
+import api from "../api";
 // import { getCookie } from "../csrf";
 
 export default function DataEntryHome() {
@@ -12,7 +12,7 @@ export default function DataEntryHome() {
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionID');
         const checkAuth = async () => {
-            await axios.get('http://127.0.0.1:8000/auth/check-auth/', {
+            await api.get('auth/check-auth/', {
                 headers: {
                     'Authorization': sessionId,
                 },

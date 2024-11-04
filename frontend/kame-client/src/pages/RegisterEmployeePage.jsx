@@ -1,9 +1,8 @@
 import RegisterEmployees from '../components/RegisterEmployees';
 import NavBar from "../components/NavBar";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import LoadingSpinner from '../components/LoadingSpinner';
-import BackButton from '../components/BackButton';
+import api from '../api';
 
 export default function EmployeeCreation() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -12,7 +11,7 @@ export default function EmployeeCreation() {
         const sessionId = localStorage.getItem('sessionID');
         const role = localStorage.getItem('role');
         const checkAuth = async () => {
-            await axios.get('http://127.0.0.1:8000/auth/check-auth/', {
+            await api.get('auth/check-auth/', {
                 headers: {
                     'Authorization': sessionId,
                 },
@@ -45,7 +44,6 @@ export default function EmployeeCreation() {
     return (
         <div className='bg-gradient-to-b from-gray-100 via-gray-100 to-sky-500 min-h-screen justify-between'>
             <NavBar />
-            <BackButton />
             <div className='h-full'>
                 <RegisterEmployees />
             </div>
