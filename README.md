@@ -1,6 +1,6 @@
 # Kame
 <div align="center">
-<img src="/home/aurae2/kame-project/frontend/kame-client/src/images/logo.png" alt="logo" height="200">
+<img src="/kame-project/frontend/kame-client/src/images/logo.png" alt="logo" height="200">
 </div>
 
 
